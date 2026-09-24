@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  app:
+    image: ghcr.io/ynightfzq/ynight-hub/server:latest
+    container_name: ${CONTAINER_NAME}
+    ports:
+      - '127.0.0.1:${PANEL_APP_PORT_HTTP}:3000'
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: production
+      TZ: Asia/Shanghai
+      PORT: '3000'
+    restart: unless-stopped
+    networks:
+      - 1panel-network
+    healthcheck:
+      test: ['CMD', 'wget', '--quiet', '--tries=1', '--spider', 'http://localhost:3000/api/health']
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    logging:
+      driver: json-file
+      options:
+        max-size: '10m'
+        max-file: '3'
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+        reservations:
+          memory: 512M
+    labels:
+      createdBy: Apps
+
+  watchtower:
+    image: containrrr/watchtower
+    container_name: ${CONTAINER_NAME}-watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${WATCHTOWER_DOCKER_CONFIG}:/config.json:ro
+    environment:
+      WATCHTOWER_POLL_INTERVAL: '300'
+      WATCHTOWER_CLEANUP: 'true'
+      TZ: Asia/Shanghai
+    restart: unless-stopped
+    command: ${CONTAINER_NAME}
+    labels:
+      createdBy: Apps
+
+networks:
+  1panel-network:
+    external: true

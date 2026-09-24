@@ -1,0 +1,26 @@
+name: YNight Hub
+tags:
+  - 建站
+title: YNight Hub 后端服务
+description: 提供 YNight Hub 的业务接口、认证、缓存和对象存储功能
+additionalProperties:
+  key: ynight-hub
+  name: YNight Hub
+  tags:
+    - Website
+  shortDescZh: YNight Hub 后端服务
+  shortDescEn: YNight Hub backend service
+  description:
+    zh: YNight Hub 后端服务，提供业务接口、认证、缓存和对象存储功能。
+    en: YNight Hub backend service with APIs, authentication, caching and object storage.
+  type: website
+  crossVersionUpdate: false
+  limit: 1
+  recommend: 0
+  website: https://github.com/YNightFZQ/ynight-hub
+  github: https://github.com/YNightFZQ/ynight-hub
+  document: https://github.com/YNightFZQ/ynight-hub
+  memoryRequired: 512
+  architectures:
+    - amd64
+    - arm64
