@@ -1,0 +1,132 @@
+name: Sync to Gitea
+
+on:
+  push:
+    branches: ["**"]
+    tags: ["**"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sync Git refs to Gitea
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GITEA_TOKEN: ${{ secrets.GITEA_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [ -z "$GITEA_TOKEN" ]; then
+            echo "缺少 GITEA_TOKEN Secret"
+            exit 1
+          fi
+
+          repo_name="${GITHUB_REPOSITORY#*/}"
+          gitea_host="git.ynight.tk"
+          namespace=""
+          for owner in YNightOrg YNight; do
+            status=$(curl -sS -o /dev/null -w '%{http_code}' \
+              -H "Authorization: token $GITEA_TOKEN" \
+              "https://$gitea_host/api/v1/repos/$owner/$repo_name")
+            if [ "$status" = 200 ]; then
+              namespace="$owner"
+              break
+            fi
+            if [ "$status" != 404 ]; then
+              echo "查询 Gitea 仓库失败：$owner/$repo_name，HTTP $status"
+              exit 1
+            fi
+          done
+          if [ -z "$namespace" ]; then
+            echo "Gitea 仓库不存在：$repo_name"
+            exit 1
+          fi
+
+          work_dir=$(mktemp -d)
+          trap 'rm -rf "$work_dir"' EXIT
+          git clone --bare "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "$work_dir/repo"
+          cd "$work_dir/repo"
+          git config --global url."https://x-access-token:${GITEA_TOKEN}@$gitea_host/".insteadOf "https://$gitea_host/"
+          remote="https://$gitea_host/$namespace/$repo_name.git"
+
+          refs=()
+          if [ "$GITHUB_EVENT_NAME" = workflow_dispatch ]; then
+            while IFS= read -r ref; do
+              refs+=("$ref")
+            done < <(git for-each-ref --format='%(refname)' refs/heads refs/tags)
+          elif git show-ref --verify --quiet "$GITHUB_REF"; then
+            refs+=("$GITHUB_REF")
+          else
+            echo "引用已删除或不存在，跳过：$GITHUB_REF"
+            exit 0
+          fi
+
+          push_in_batches() {
+            local ref="$1" output end temp_ref result=0
+            local index=0 step=128 serial=0 retries=0 commit
+            local -a commits temporary_refs delete_specs
+            commits=()
+            while IFS= read -r commit; do
+              commits+=("$commit")
+            done < <(git rev-list --reverse --topo-order "$ref")
+            if [ "${#commits[@]}" -eq 0 ]; then
+              echo "无法分批传输非提交引用：$ref"
+              return 1
+            fi
+            temporary_refs=()
+
+            while [ "$index" -lt "${#commits[@]}" ]; do
+              end=$((index + step - 1))
+              if [ "$end" -ge "${#commits[@]}" ]; then
+                end=$((${#commits[@]} - 1))
+              fi
+              temp_ref="refs/tags/__repo_sync_transfer_${GITHUB_RUN_ID}_${GITHUB_RUN_ATTEMPT}_${serial}"
+              if output=$(git push "$remote" "${commits[$end]}:$temp_ref" 2>&1); then
+                temporary_refs+=("$temp_ref")
+                index=$((end + 1))
+                serial=$((serial + 1))
+                step=128
+                retries=0
+                echo "已传输 $index/${#commits[@]} 个提交"
+              elif [[ "$output" == *"413"* || "$output" == *"502"* || "$output" == *"504"* ]] && [ "$step" -gt 1 ]; then
+                step=$((step / 2))
+                retries=0
+                echo "请求受限，缩小到 $step 个提交后重试"
+              elif [[ "$output" == *"502"* || "$output" == *"504"* ]] && [ "$retries" -lt 3 ]; then
+                retries=$((retries + 1))
+                sleep 5
+              else
+                echo "$output"
+                result=1
+                break
+              fi
+            done
+
+            if [ "$result" -eq 0 ] && ! git push --force "$remote" "$ref"; then
+              result=1
+            fi
+            if [ "${#temporary_refs[@]}" -gt 0 ]; then
+              delete_specs=()
+              for temp_ref in "${temporary_refs[@]}"; do
+                delete_specs+=(":$temp_ref")
+              done
+              git push "$remote" "${delete_specs[@]}" || result=1
+            fi
+            return "$result"
+          }
+
+          for ref in "${refs[@]}"; do
+            echo "同步 $ref 到 $namespace/$repo_name"
+            if output=$(git push --force "$remote" "$ref" 2>&1); then
+              echo "$output"
+            elif [[ "$output" == *"413"* ]]; then
+              echo "HTTP 413，改为分批传输"
+              push_in_batches "$ref"
+            else
+              echo "$output"
+              exit 1
+            fi
+          done
