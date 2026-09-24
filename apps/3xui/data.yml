@@ -1,0 +1,35 @@
+name: 3X-UI
+tags:
+  - 实用工具
+title: 支持多协议多用户的 Xray 面板
+description: 支持多协议多用户的 Xray 面板
+additionalProperties:
+  key: 3xui
+  name: 3X-UI
+  tags:
+    - Tool
+  shortDescZh: 支持多协议多用户的 Xray 面板
+  shortDescEn: Xray panel supporting multi-protocol, multi-user with a web UI
+  description:
+    en: Xray panel supporting multi-protocol, multi-user with a web UI
+    zh: 支持多协议多用户的 Xray 面板
+    zh-Hant: 支援多協議多使用者的 Xray 面板
+    ja: マルチプロトコル・マルチユーザーをサポートする Xray パネル
+    ko: 멀티 프로토콜, 멀티 사용자를 지원하는 Xray 패널
+    ru: Xray панель с поддержкой мульти-протоколов и мульти-пользователей
+    es-es: Panel Xray con soporte multiprotocolo y multiusuario
+    pt-br: Painel Xray com suporte a múltiplos protocolos e múltiplos usuários
+    ms: Panel Xray menyokong pelbagai protokol dan pelbagai pengguna
+    tr: Çoklu protokol ve çoklu kullanıcı destekli Xray paneli
+    fa: پنل Xray با پشتیبانی از چند پروتکل و چند کاربر
+  type: website
+  crossVersionUpdate: true
+  limit: 0
+  recommend: 0
+  website: https://docs.sanaei.dev/
+  github: https://github.com/MHSanaei/3x-ui
+  document: https://docs.sanaei.dev/
+  memoryRequired: 512
+  architectures:
+    - amd64
+    - arm64

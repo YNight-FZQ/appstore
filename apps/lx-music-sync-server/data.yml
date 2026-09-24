@@ -1,0 +1,36 @@
+name: LX Music Sync Server
+tags:
+  - 多媒体
+title: LX Music 数据同步服务端（增强版，含 Web 播放器）
+description: LX Music 数据同步服务端（增强版，含 Web 播放器）
+additionalProperties:
+  key: lx-music-sync-server
+  name: LX Music Sync Server
+  tags:
+    - Media
+  shortDescZh: LX Music 数据同步服务端（增强版，含 Web 播放器）
+  shortDescEn: Enhanced LX Music data sync server with a built-in Web player
+  description:
+    en: Enhanced LX Music data sync server with a built-in Web player, multi-source search, automatic cache, lyrics card sharing and Subsonic protocol support.
+    zh: LX Music 数据同步服务端（增强版），内置 Web 播放器，支持多源搜索、自动缓存、歌词卡片分享及 Subsonic 协议。
+    zh-Hant: LX Music 資料同步服務端（增強版），內建 Web 播放器，支援多源搜尋、自動快取、歌詞卡片分享及 Subsonic 協議。
+    ja: LX Music データ同期サーバー（拡張版）。Web プレーヤー内蔵、複数ソース検索、自動キャッシュ、歌詞カード共有、Subsonic プロトコル対応。
+    ko: LX Music 데이터 동기화 서버(향상판) - 내장 웹 플레이어, 다중 소스 검색, 자동 캐시, 가사 카드 공유 및 Subsonic 프로토콜 지원.
+    ru: Расширенный сервер синхронизации данных LX Music со встроенным веб-плеером, мульти-поиском, авто-кэшем и поддержкой Subsonic.
+    es-es: Servidor de sincronización de datos de LX Music (mejorado) con reproductor web integrado.
+    pt-br: Servidor de sincronização de dados LX Music (aprimorado) com Web player integrado.
+    ms: Pelayan penyegerakan data LX Music (dipertingkatkan) dengan pemain web terbina dalam.
+    tr: LX Music veri senkronizasyon sunucusu (geliştirilmiş) dahili Web oynatıcı ile.
+    fa: سرور همگام‌سازی داده‌های LX Music (نسخه بهبودیافته) با پخش‌کننده وب داخلی.
+  type: website
+  crossVersionUpdate: false
+  limit: 0
+  recommend: 0
+  website: https://xcq0607.github.io/lxserver/
+  github: https://github.com/XCQ0607/lxserver
+  document: https://xcq0607.github.io/lxserver/
+  memoryRequired: 512
+  architectures:
+    - amd64
+    - arm64
+    - arm/v7

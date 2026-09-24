@@ -1,0 +1,26 @@
+services:
+  3xui:
+    image: ghcr.io/mhsanaei/3x-ui:v3.8.5
+    container_name: ${CONTAINER_NAME}
+    restart: always
+    tty: true
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    networks:
+      - 1panel-network
+    ports:
+      - ${PANEL_APP_PORT_HTTP}:2053
+      - ${PANEL_APP_PORT_XRAY}:8443
+    volumes:
+      - ./data/db:/etc/x-ui/
+      - ./data/cert:/root/cert/
+    environment:
+      XRAY_VMESS_AEAD_FORCED: ${XRAY_VMESS_AEAD_FORCED}
+      XUI_ENABLE_FAIL2BAN: ${XUI_ENABLE_FAIL2BAN}
+    labels:
+      createdBy: "Apps"
+
+networks:
+  1panel-network:
+    external: true

@@ -1,0 +1,226 @@
+additionalProperties:
+  formFields:
+    - default: 9527
+      envKey: PANEL_APP_PORT_HTTP
+      edit: true
+      labelEn: Service Port
+      labelZh: 服务端口
+      label:
+        en: Service Port
+        es-es: Puerto de servicio
+        fa: پورت سرویس
+        ja: サービスポート
+        ms: Port Perkhidmatan
+        pt-br: Porta de serviço
+        ru: Порт сервиса
+        ko: 서비스 포트
+        zh-Hant: 服務埠
+        zh: 服务端口
+        tr: Servis Portu
+      description:
+        en: "Main service port. Serves both the Web player and the admin panel."
+        es-es: Puerto principal del servicio. Sirve tanto el reproductor web como el panel de administración.
+        fa: پورت اصلی سرویس. هم پخش‌کننده وب و هم پنل مدیریت را ارائه می‌دهد.
+        ja: メインサービスポート。Web プレーヤーと管理パネルの両方に使用されます。
+        ms: Port perkhidmatan utama. Menyervis pemain web dan panel pentadbir.
+        pt-br: Porta principal do serviço. Serve tanto o Web player quanto o painel admin.
+        ru: Основной порт сервиса. Обслуживает веб-плеер и панель администратора.
+        ko: 메인 서비스 포트. 웹 플레이어와 관리자 패널을 모두 제공합니다.
+        zh-Hant: 主服務埠。同時提供 Web 播放器和後台管理介面。
+        zh: 主服务端口，同时提供 Web 播放器和后台管理界面。
+        tr: Ana servis portu. Hem web oynatıcıyı hem de yönetici panelini sunar.
+      required: true
+      rule: paramPort
+      type: number
+    - default: /admin
+      envKey: ADMIN_PATH
+      edit: true
+      labelEn: Admin Path
+      labelZh: 后台路径
+      label:
+        en: Admin Path
+        es-es: Ruta del panel
+        fa: مسیر پنل مدیریت
+        ja: 管理パス
+        ms: Laluan Pentadbir
+        pt-br: Caminho do admin
+        ru: Путь админ-панели
+        ko: 관리자 경로
+        zh-Hant: 後台路徑
+        zh: 后台路径
+        tr: Yönetici Yolu
+      description:
+        en: "URL path of the admin panel. Final URL: http://SERVER_IP:port{ADMIN_PATH}"
+        es-es: "Ruta URL del panel de administración. URL final: http://SERVER_IP:port{ADMIN_PATH}"
+        fa: "مسیر URL پنل مدیریت. URL نهایی: http://SERVER_IP:port{ADMIN_PATH}"
+        ja: "管理パネルの URL パス。最終 URL: http://SERVER_IP:port{ADMIN_PATH}"
+        ms: "Laluan URL panel pentadbir. URL akhir: http://SERVER_IP:port{ADMIN_PATH}"
+        pt-br: "Caminho URL do painel admin. URL final: http://SERVER_IP:port{ADMIN_PATH}"
+        ru: "URL-путь админ-панели. Итоговый URL: http://SERVER_IP:port{ADMIN_PATH}"
+        ko: "관리자 패널의 URL 경로. 최종 URL: http://SERVER_IP:port{ADMIN_PATH}"
+        zh-Hant: "後台路徑。最終 URL：http://SERVER_IP:port{ADMIN_PATH}"
+        zh: "后台路径。最终 URL：http://SERVER_IP:port{ADMIN_PATH}"
+        tr: "Yönetici paneli URL yolu. Son URL: http://SERVER_IP:port{ADMIN_PATH}"
+      required: true
+      rule: paramString
+      type: text
+    - default: 123456
+      envKey: FRONTEND_PASSWORD
+      edit: true
+      labelEn: Admin Panel Password
+      labelZh: 后台管理密码
+      label:
+        en: Admin Panel Password
+        es-es: Contraseña del panel
+        fa: رمز عبور پنل مدیریت
+        ja: 管理パネルのパスワード
+        ms: Kata Laluan Panel Pentadbir
+        pt-br: Senha do painel admin
+        ru: Пароль админ-панели
+        ko: 관리자 패널 비밀번호
+        zh-Hant: 後台管理密碼
+        zh: 后台管理密码
+        tr: Yönetici Paneli Şifresi
+      description:
+        en: "Password required to access the admin panel. PLEASE CHANGE IT after installation."
+        es-es: Contraseña para acceder al panel de administración. CÁMBIELA después de la instalación.
+        fa: رمز عبور برای دسترسی به پنل مدیریت. لطفاً پس از نصب آن را تغییر دهید.
+        ja: 管理パネルにアクセスするためのパスワード。インストール後に変更してください。
+        ms: Kata laluan untuk akses panel pentadbir. SILA TUKAR selepas pemasangan.
+        pt-br: Senha para acessar o painel admin. ALTERE APÓS A INSTALAÇÃO.
+        ru: Пароль для доступа к админ-панели. ОБЯЗАТЕЛЬНО СМЕНИТЕ после установки.
+        ko: 관리자 패널 접근 비밀번호. 설치 후 반드시 변경하세요.
+        zh-Hant: 訪問後台管理介面所需的密碼。安裝後請務必修改。
+        zh: 访问后台管理界面所需的密码，安装后请务必修改。
+        tr: Yönetici paneline erişmek için şifre. Kurulumdan sonra LÜTFEN DEĞİŞTİRİN.
+      required: true
+      rule: paramString
+      type: text
+    - default: 123456
+      envKey: WEBPLAYER_PASSWORD
+      edit: true
+      labelEn: Web Player Password
+      labelZh: Web 播放器密码
+      label:
+        en: Web Player Password
+        es-es: Contraseña del reproductor web
+        fa: رمز عبور پخش‌کننده وب
+        ja: Web プレーヤーのパスワード
+        ms: Kata Laluan Pemain Web
+        pt-br: Senha do Web player
+        ru: Пароль веб-плеера
+        ko: 웹 플레이어 비밀번호
+        zh-Hant: Web 播放器密碼
+        zh: Web 播放器密码
+        tr: Web Oynatıcı Şifresi
+      description:
+        en: "Password required to access the Web player (only enforced when ENABLE_WEBPLAYER_AUTH is true). PLEASE CHANGE IT after installation."
+        es-es: Contraseña para acceder al reproductor web (solo se aplica cuando ENABLE_WEBPLAYER_AUTH es true). CÁMBIELA después de la instalación.
+        fa: رمز عبور برای دسترسی به پخش‌کننده وب (فقط زمانی اعمال می‌شود که ENABLE_WEBPLAYER_AUTH برابر true باشد). لطفاً پس از نصب آن را تغییر دهید.
+        ja: Web プレーヤーにアクセスするためのパスワード（ENABLE_WEBPLAYER_AUTH が true の場合のみ有効）。インストール後に変更してください。
+        ms: Kata laluan untuk akses pemain web (hanya digunakan apabila ENABLE_WEBPLAYER_AUTH ialah true). SILA TUKAR selepas pemasangan.
+        pt-br: Senha para acessar o Web player (apenas aplicada quando ENABLE_WEBPLAYER_AUTH for true). ALTERE APÓS A INSTALAÇÃO.
+        ru: Пароль для доступа к веб-плееру (действует только при ENABLE_WEBPLAYER_AUTH=true). СМЕНИТЕ после установки.
+        ko: 웹 플레이어 접근 비밀번호 (ENABLE_WEBPLAYER_AUTH가 true일 때만 적용). 설치 후 변경하세요.
+        zh-Hant: 訪問 Web 播放器所需的密碼（僅在 ENABLE_WEBPLAYER_AUTH 為 true 時生效）。安裝後請務必修改。
+        zh: 访问 Web 播放器所需的密码（仅在 ENABLE_WEBPLAYER_AUTH 为 true 时生效），安装后请务必修改。
+        tr: Web oynatıcıya erişmek için şifre (yalnızca ENABLE_WEBPLAYER_AUTH true olduğunda uygulanır). Kurulumdan sonra LÜTFEN DEĞİŞTİRİN.
+      required: true
+      rule: paramString
+      type: text
+    - default: 'true'
+      envKey: ENABLE_WEBPLAYER_AUTH
+      edit: true
+      labelEn: Enable Web Player Auth
+      labelZh: 启用 Web 播放器鉴权
+      label:
+        en: Enable Web Player Auth
+        es-es: Habilitar autenticación del reproductor web
+        fa: فعال‌سازی احراز هویت پخش‌کننده وب
+        ja: Web プレーヤー認証を有効化
+        ms: Dayakan Pengepemain Web
+        pt-br: Habilitar autenticação do Web player
+        ru: Включить аутентификацию веб-плеера
+        ko: 웹 플레이어 인증 활성화
+        zh-Hant: 啟用 Web 播放器鑑權
+        zh: 启用 Web 播放器鉴权
+        tr: Web Oynatıcı Kimlik Doğrulamayı Etkinleştir
+      description:
+        en: "When enabled, the Web player will require a password (WEBPLAYER_PASSWORD). Allowed values: true / false."
+        es-es: "Cuando está habilitado, el reproductor web solicitará una contraseña (WEBPLAYER_PASSWORD). Valores permitidos: true / false."
+        fa: "در صورت فعال بودن، پخش‌کننده وب به رمز عبور نیاز دارد (WEBPLAYER_PASSWORD). مقادیر مجاز: true / false."
+        ja: "有効にすると、Web プレーヤーはパスワードを要求します (WEBPLAYER_PASSWORD)。許容値: true / false。"
+        ms: "Apabila didayakan, pemain web akan meminta kata laluan (WEBPLAYER_PASSWORD). Nilai dibenarkan: true / false."
+        pt-br: "Quando habilitado, o Web player exigirá uma senha (WEBPLAYER_PASSWORD). Valores permitidos: true / false."
+        ru: "При включении веб-плеер потребует пароль (WEBPLAYER_PASSWORD). Допустимые значения: true / false."
+        ko: "활성화되면 웹 플레이어가 비밀번호(WEBPLAYER_PASSWORD)를 요구합니다. 허용 값: true / false."
+        zh-Hant: "啟用後，Web 播放器將要求輸入密碼（WEBPLAYER_PASSWORD）。允許值：true / false。"
+        zh: "启用后，Web 播放器将要求输入密码（WEBPLAYER_PASSWORD）。允许值：true / false。"
+        tr: "Etkinleştirildiğinde, Web oynatıcı şifre (WEBPLAYER_PASSWORD) isteyecektir. İzin verilen değerler: true / false."
+      required: true
+      rule: paramBool
+      type: boolean
+    - default: ''
+      envKey: LX_USER_ADMIN_PASSWORD
+      edit: true
+      labelEn: LX Sync Admin Account Password
+      labelZh: LX 同步管理员账户密码
+      label:
+        en: LX Sync Admin Account Password
+        es-es: Contraseña de la cuenta admin de sincronización LX
+        fa: رمز عبور حساب همگام‌سازی مدیر LX
+        ja: LX 同期管理者アカウントのパスワード
+        ms: Kata Laluan Akaun Penyegerakan Pentadbir LX
+        pt-br: Senha da conta de sincronização admin LX
+        ru: Пароль учётной записи синхронизации LX admin
+        ko: LX 동기화 관리자 계정 비밀번호
+        zh-Hant: LX 同步管理員帳號密碼
+        zh: LX 同步管理员账号密码
+        tr: LX Senkronizasyon Yönetici Hesabı Şifresi
+      description:
+        en: "Password for the built-in 'admin' LX Music sync account used by LX Music desktop client. Leave empty to disable this sync account."
+        es-es: "Contraseña para la cuenta 'admin' de sincronización LX Music usada por el cliente de escritorio. Déjela vacía para deshabilitar esta cuenta."
+        fa: "رمز عبور برای حساب همگام‌سازی 'admin' داخلی LX Music که توسط کلاینت دسکتاپ LX Music استفاده می‌شود. برای غیرفعال کردن این حساب، خالی بگذارید."
+        ja: "LX Music デスクトップクライアントが使用する組み込み 'admin' LX Music 同期アカウントのパスワード。このアカウントを無効にするには空のままにします。"
+        ms: "Kata laluan untuk akaun penyegerakan 'admin' terbina dalam LX Music yang digunakan oleh pelanggan desktop. Biarkan kosong untuk melumpuhkan akaun ini."
+        pt-br: "Senha para a conta interna 'admin' de sincronização LX Music usada pelo cliente desktop. Deixe vazio para desativar esta conta."
+        ru: "Пароль для встроенной учётной записи синхронизации 'admin' LX Music, используемой десктопным клиентом. Оставьте пустым, чтобы отключить."
+        ko: "LX Music 데스크톱 클라이언트가 사용하는 내장 'admin' LX Music 동기화 계정의 비밀번호. 이 계정을 비활성화하려면 비워 두세요."
+        zh-Hant: "LX Music 桌面端使用的內建 'admin' 同步帳號密碼。留空則停用此同步帳號。"
+        zh: "LX Music 桌面端使用的内置 'admin' 同步账号密码，留空则停用此同步账号。"
+        tr: "LX Music masaüstü istemcisi tarafından kullanılan yerleşik 'admin' LX Music senkronizasyon hesabının şifresi. Devre dışı bırakmak için boş bırakın."
+      required: false
+      rule: paramString
+      type: text
+    - default: 'true'
+      envKey: DISABLE_TELEMETRY
+      edit: true
+      labelEn: Disable Telemetry & Update Notifications
+      labelZh: 禁用匿名统计和更新通知
+      label:
+        en: Disable Telemetry & Update Notifications
+        es-es: Desactivar telemetría y notificaciones de actualización
+        fa: غیرفعال‌سازی آمار و اعلان‌های به‌روزرسانی
+        ja: 統計情報と更新通知を無効化
+        ms: Lumpuhkan Telemetri & Pemberitahuan Kemas Kini
+        pt-br: Desativar telemetria e notificações de atualização
+        ru: Отключить телеметрию и уведомления об обновлениях
+        ko: 원격 분석 및 업데이트 알림 비활성화
+        zh-Hant: 停用匿名統計與更新通知
+        zh: 停用匿名统计和更新通知
+        tr: Telemetri ve Güncelleme Bildirimlerini Devre Dışı Bırak
+      description:
+        en: "When enabled, anonymous usage statistics, system announcements and new-version notifications are suppressed. Allowed values: true / false."
+        es-es: "Cuando está habilitado, se suprimen las estadísticas anónimas, anuncios del sistema y notificaciones de nuevas versiones. Valores permitidos: true / false."
+        fa: "در صورت فعال بودن، آمار استفاده ناشناس، اعلان‌های سیستم و اعلان‌های نسخه جدید سرکوب می‌شوند. مقادیر مجاز: true / false."
+        ja: "有効にすると、匿名の利用統計、システムの告知、新バージョン通知が抑制されます。許容値: true / false。"
+        ms: "Apabila didayakan, statistik penggunaan anonim, pengumuman sistem dan pemberitahuan versi baru akan ditindas. Nilai dibenarkan: true / false."
+        pt-br: "Quando habilitado, estatísticas anônimas de uso, anúncios do sistema e notificações de novas versões são suprimidos. Valores permitidos: true / false."
+        ru: "При включении анонимная статистика, системные объявления и уведомления о новых версиях подавляются. Допустимые значения: true / false."
+        ko: "활성화되면 익명 사용 통계, 시스템 공지사항 및 새 버전 알림이 표시되지 않습니다. 허용 값: true / false."
+        zh-Hant: "啟用後，將停用匿名使用統計、系統公告及新版本通知。允許值：true / false。"
+        zh: "启用后，将停用匿名使用统计、系统公告及新版本通知。允许值：true / false。"
+        tr: "Etkinleştirildiğinde anonim kullanım istatistikleri, sistem duyuruları ve yeni sürüm bildirimleri bastırılır. İzin verilen değerler: true / false."
+      required: true
+      rule: paramBool
+      type: boolean

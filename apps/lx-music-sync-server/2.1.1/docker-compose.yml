@@ -1,0 +1,46 @@
+services:
+  lx-sync-server:
+    image: xcq0607/lxserver:v2.1.1
+    container_name: ${CONTAINER_NAME}
+    restart: always
+
+    ports:
+      - ${PANEL_APP_PORT_HTTP}:9527
+    volumes:
+      - ./data:/server/data
+      - ./logs:/server/logs
+      - ./cache:/server/cache
+      - ./music:/server/music
+
+    environment:
+      NODE_ENV: production
+
+      DATA_PATH: /server/data
+      LOG_PATH: /server/logs
+
+      ADMIN_PATH: ${ADMIN_PATH}
+
+      FRONTEND_PASSWORD: ${FRONTEND_PASSWORD}
+
+      ENABLE_WEBPLAYER_AUTH: ${ENABLE_WEBPLAYER_AUTH}
+      WEBPLAYER_PASSWORD: ${WEBPLAYER_PASSWORD}
+
+      DISABLE_TELEMETRY: ${DISABLE_TELEMETRY}
+
+      LX_USER_admin: ${LX_USER_ADMIN_PASSWORD}
+
+    networks:
+      - 1panel-network
+
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+    labels:
+      createdBy: "Apps"
+
+networks:
+  1panel-network:
+    external: true

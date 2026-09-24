@@ -1,0 +1,130 @@
+additionalProperties:
+  formFields:
+    - default: 2053
+      envKey: PANEL_APP_PORT_HTTP
+      edit: true
+      labelEn: Panel Port
+      labelZh: 面板端口
+      label:
+        en: Panel Port
+        es-es: Puerto del panel
+        fa: پورت پنل
+        ja: パネルポート
+        ms: Port Panel
+        pt-br: Porta do painel
+        ru: Порт панели
+        ko: 패널 포트
+        zh-Hant: 面板埠
+        zh: 面板端口
+        tr: Panel Portu
+      description:
+        en: Web UI port of the 3X-UI panel.
+        es-es: Puerto de la interfaz web del panel 3X-UI.
+        fa: پورت رابط وب پنل 3X-UI.
+        ja: 3X-UI パネルの Web UI ポート。
+        ms: Port UI Web panel 3X-UI.
+        pt-br: Porta da interface web do painel 3X-UI.
+        ru: Порт веб-интерфейса панели 3X-UI.
+        ko: 3X-UI 패널의 웹 UI 포트.
+        zh-Hant: 3X-UI 面板的 Web UI 埠。
+        zh: 3X-UI 面板的 Web UI 端口。
+        tr: 3X-UI panelinin web UI portu.
+      required: true
+      rule: paramPort
+      type: number
+    - default: 8443
+      envKey: PANEL_APP_PORT_XRAY
+      edit: true
+      labelEn: Xray Inbound Port
+      labelZh: Xray 入站端口
+      label:
+        en: Xray Inbound Port
+        es-es: Puerto de entrada Xray
+        fa: پورت ورودی Xray
+        ja: Xray 受信ポート
+        ms: Port Masuk Xray
+        pt-br: Porta de entrada Xray
+        ru: Входящий порт Xray
+        ko: Xray 인바운드 포트
+        zh-Hant: Xray 入站埠
+        zh: Xray 入站端口
+        tr: Xray Gelen Port
+      description:
+        en: Default inbound port for Xray traffic (used by the panel as a fallback / first inbound).
+        es-es: Puerto de entrada predeterminado para el tráfico Xray.
+        fa: پورت ورودی پیش‌فرض برای ترافیک Xray.
+        ja: Xray トラフィックのデフォルト着信ポート。
+        ms: Port masuk lalai untuk trafik Xray.
+        pt-br: Porta de entrada padrão para o tráfego Xray.
+        ru: Порт по умолчанию для входящего трафика Xray.
+        ko: Xray 트래픽의 기본 인바운드 포트.
+        zh-Hant: Xray 流量的預設入站埠。
+        zh: Xray 流量的默认入站端口。
+        tr: Xray trafiği için varsayılan gelen port.
+      required: true
+      rule: paramPort
+      type: number
+    - default: 'true'
+      envKey: XRAY_VMESS_AEAD_FORCED
+      edit: true
+      labelEn: Force VMess AEAD
+      labelZh: 强制启用 VMess AEAD
+      label:
+        en: Force VMess AEAD
+        es-es: Forzar VMess AEAD
+        fa: اجبار VMess AEAD
+        ja: VMess AEAD を強制
+        ms: Paksa VMess AEAD
+        pt-br: Forçar VMess AEAD
+        ru: Принудительный VMess AEAD
+        ko: VMess AEAD 강제
+        zh-Hant: 強制啟用 VMess AEAD
+        zh: 强制启用 VMess AEAD
+        tr: VMess AEAD'yi Zorla
+      description:
+        en: "Force enable VMess AEAD encryption (recommended). Allowed values: true / false."
+        es-es: "Forzar la activación del cifrado VMess AEAD (recomendado). Valores permitidos: true / false."
+        fa: "فعا‌لسازی اجباری رمزنگاری VMess AEAD (توصیه می‌شود). مقادیر مجاز: true / false."
+        ja: "Xray トラフィックのデフォルト着信ポート。許容値: true / false。"
+        ms: "Paksa aktifkan penyulitan VMess AEAD (disyorkan). Nilai dibenarkan: true / false."
+        pt-br: "Forçar ativação da criptografia VMess AEAD (recomendado). Valores permitidos: true / false."
+        ru: "Принудительно включить шифрование VMess AEAD (рекомендуется). Допустимые значения: true / false."
+        ko: "VMess AEAD 암호화 강제 활성화 (권장). 허용 값: true / false."
+        zh-Hant: "強制啟用 VMess AEAD 加密（建議）。允許值：true / false。"
+        zh: "强制启用 VMess AEAD 加密（建议）。允许值：true / false。"
+        tr: "VMess AEAD şifrelemesini zorla etkinleştir (önerilir). İzin verilen değerler: true / false."
+      required: true
+      rule: paramBool
+      type: boolean
+    - default: 'true'
+      envKey: XUI_ENABLE_FAIL2BAN
+      edit: true
+      labelEn: Enable Fail2ban
+      labelZh: 启用 Fail2ban
+      label:
+        en: Enable Fail2ban
+        es-es: Habilitar Fail2ban
+        fa: فعال‌سازی Fail2ban
+        ja: Fail2ban を有効化
+        ms: Dayakan Fail2ban
+        pt-br: Habilitar Fail2ban
+        ru: Включить Fail2ban
+        ko: Fail2ban 활성화
+        zh-Hant: 啟用 Fail2ban
+        zh: 启用 Fail2ban
+        tr: Fail2ban'ı Etkinleştir
+      description:
+        en: "Enable the built-in fail2ban protection. Allowed values: true / false."
+        es-es: "Habilitar la protección fail2ban integrada. Valores permitidos: true / false."
+        fa: "فعا‌لسازی محافظت داخلی fail2ban. مقادیر مجاز: true / false."
+        ja: "内蔵 fail2ban 保護を有効化。許容値: true / false。"
+        ms: "Dayakan perlindungan fail2ban terbina dalam. Nilai dibenarkan: true / false."
+        pt-br: "Habilitar a proteção fail2ban integrada. Valores permitidos: true / false."
+        ru: "Включить встроенную защиту fail2ban. Допустимые значения: true / false."
+        ko: "내장 fail2ban 보호 활성화. 허용 값: true / false."
+        zh-Hant: "啟用內建 fail2ban 防護。允許值：true / false。"
+        zh: "启用内置 fail2ban 防护。允许值：true / false。"
+        tr: "Dahili fail2ban korumasını etkinleştir. İzin verilen değerler: true / false."
+      required: true
+      rule: paramBool
+      type: boolean
