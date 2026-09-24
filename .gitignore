@@ -6,3 +6,6 @@
 
 # VSCode
 .vscode
+
+# 本地生成的应用密钥文件
+apps/ynight-hub/latest/conf/app.env

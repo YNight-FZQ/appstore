@@ -8,10 +8,16 @@ services:
       - '127.0.0.1:${PANEL_APP_PORT_HTTP}:3000'
     env_file:
       - .env
+      - ./conf/app.env
     environment:
       NODE_ENV: production
       TZ: Asia/Shanghai
       PORT: '3000'
+      DB_MYSQL_HOST: ${PANEL_DB_HOST}
+      DB_MYSQL_PORT: ${PANEL_DB_PORT}
+      DB_MYSQL_USERNAME: ${PANEL_DB_USER}
+      DB_MYSQL_PASSWORD: ${PANEL_DB_USER_PASSWORD}
+      DB_MYSQL_DATABASE_NAME: ${PANEL_DB_NAME}
     restart: unless-stopped
     networks:
       - 1panel-network
@@ -40,7 +46,7 @@ services:
     container_name: ${CONTAINER_NAME}-watchtower
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ${WATCHTOWER_DOCKER_CONFIG}:/config.json:ro
+      - /var/lib/docker/config.json:/config.json:ro
     environment:
       WATCHTOWER_POLL_INTERVAL: '300'
       WATCHTOWER_CLEANUP: 'true'

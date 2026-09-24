@@ -10,9 +10,10 @@ additionalProperties:
       edit: true
     - envKey: REDIS_HOST
       default: ''
-      labelZh: Redis 主机
-      labelEn: Redis host
-      type: text
+      key: redis
+      labelZh: Redis 服务
+      labelEn: Redis service
+      type: service
       required: true
       edit: true
     - envKey: REDIS_PORT
@@ -37,209 +38,34 @@ additionalProperties:
       type: password
       required: false
       edit: true
-    - envKey: REDIS_TTL
-      default: 86400
-      labelZh: Redis 缓存时长（秒）
-      labelEn: Redis cache TTL (seconds)
-      type: number
-      required: true
-      edit: true
-    - envKey: ES_NODE
-      default: 'http://1Panel-elasticsearch-gLLf:9200'
-      labelZh: Elasticsearch 地址
-      labelEn: Elasticsearch URL
-      type: text
-      required: true
-      edit: true
-    - envKey: ES_USERNAME
+    - envKey: PANEL_DB_HOST
       default: ''
-      labelZh: Elasticsearch 用户名
-      labelEn: Elasticsearch username
-      type: text
-      required: false
-      edit: true
-    - envKey: ES_PASSWORD
-      default: ''
-      labelZh: Elasticsearch 密码
-      labelEn: Elasticsearch password
-      type: password
-      required: false
-      edit: true
-    - envKey: ES_LOG_INDEX_PREFIX
-      default: my-website-prod
-      labelZh: 日志索引前缀
-      labelEn: Log index prefix
-      type: text
+      key: mysql
+      labelZh: MySQL 服务
+      labelEn: MySQL service
+      type: service
       required: true
-      edit: true
-    - envKey: DB_MYSQL_HOST
-      default: ''
-      labelZh: MySQL 主机
-      labelEn: MySQL host
-      type: text
-      required: true
-      edit: true
-    - envKey: DB_MYSQL_PORT
-      default: 3306
-      labelZh: MySQL 端口
-      labelEn: MySQL port
-      type: number
-      rule: paramPort
-      required: true
-      edit: true
-    - envKey: DB_MYSQL_USERNAME
-      default: ''
-      labelZh: MySQL 用户名
-      labelEn: MySQL username
-      type: text
-      required: true
-      edit: true
-    - envKey: DB_MYSQL_PASSWORD
-      default: ''
-      labelZh: MySQL 密码
-      labelEn: MySQL password
-      type: password
-      required: true
-      edit: true
-    - envKey: DB_MYSQL_DATABASE_NAME
-      default: ''
+    - envKey: PANEL_DB_NAME
+      default: ynight
       labelZh: MySQL 数据库名
       labelEn: MySQL database name
       type: text
+      random: true
+      rule: paramCommon
       required: true
-      edit: true
-    - envKey: R2_OSS_ENDPOINT
-      default: ''
-      labelZh: R2 接口地址
-      labelEn: R2 endpoint URL
+    - envKey: PANEL_DB_USER
+      default: ynight
+      labelZh: MySQL 用户名
+      labelEn: MySQL username
       type: text
+      random: true
+      rule: paramCommon
       required: true
-      edit: true
-    - envKey: R2_OSS_ACCESS_KEY_ID
-      default: ''
-      labelZh: R2 访问密钥 ID
-      labelEn: R2 access key ID
-      type: password
-      required: true
-      edit: true
-    - envKey: R2_OSS_ACCESS_KEY_SECRET
-      default: ''
-      labelZh: R2 访问密钥
-      labelEn: R2 secret access key
-      type: password
-      required: true
-      edit: true
-    - envKey: R2_OSS_BUCKET
-      default: ''
-      labelZh: R2 存储桶
-      labelEn: R2 bucket
-      type: text
-      required: true
-      edit: true
-    - envKey: R2_OSS_REGION
-      default: auto
-      labelZh: R2 区域
-      labelEn: R2 region
-      type: text
-      required: true
-      edit: true
-    - envKey: R2_OSS_PUBLIC_BASE_URL
-      default: ''
-      labelZh: R2 公开访问地址（可选）
-      labelEn: R2 public base URL (optional)
-      type: text
-      required: false
-      edit: true
-    - envKey: DEFAULT_OSS_PROVIDER
-      default: r2
-      labelZh: 默认对象存储提供商
-      labelEn: Default object storage provider
-      type: text
-      required: true
-      edit: true
-    - envKey: SUPABASE_ACCOUNTS
-      default: ''
-      labelZh: Supabase 账号 JSON（可选）
-      labelEn: Supabase accounts JSON (optional)
-      type: text
-      required: false
-      edit: true
-    - envKey: BARK_SERVER
-      default: ''
-      labelZh: Bark 服务器（可选）
-      labelEn: Bark server (optional)
-      type: text
-      required: false
-      edit: true
-    - envKey: BARK_KEY
-      default: ''
-      labelZh: Bark 密钥（可选）
-      labelEn: Bark key (optional)
-      type: password
-      required: false
-      edit: true
-    - envKey: SEND_BARK
-      default: 'false'
-      labelZh: 启用 Bark 推送
-      labelEn: Enable Bark notifications
-      type: boolean
-      rule: paramBool
-      required: true
-      edit: true
-    - envKey: JWT_SECRET
-      default: ''
-      labelZh: JWT 签名密钥
-      labelEn: JWT signing secret
+    - envKey: PANEL_DB_USER_PASSWORD
+      default: ynight
+      labelZh: MySQL 密码
+      labelEn: MySQL password
       type: password
       random: true
+      rule: paramComplexity
       required: true
-      edit: true
-    - envKey: JWT_EXPIRES_IN
-      default: 30m
-      labelZh: JWT 有效期
-      labelEn: JWT expiry
-      type: text
-      required: true
-      edit: true
-    - envKey: JWT_REFRESH_EXPIRES_IN
-      default: 7d
-      labelZh: JWT 刷新有效期
-      labelEn: JWT refresh expiry
-      type: text
-      required: true
-      edit: true
-    - envKey: SAFE_TOKEN
-      default: ''
-      labelZh: 动漫服务安全令牌
-      labelEn: TVBox safety token
-      type: password
-      required: true
-      edit: true
-    - envKey: TVBOX_API
-      default: ''
-      labelZh: TVBox 接口密钥
-      labelEn: TVBox API key
-      type: password
-      required: true
-      edit: true
-    - envKey: ARIA_TOKEN
-      default: ''
-      labelZh: aria2 接口密钥
-      labelEn: aria2 RPC token
-      type: password
-      required: true
-      edit: true
-    - envKey: ARIA_DOWNLOAD_DIR
-      default: /var/aria2/sandbox
-      labelZh: aria2 下载目录
-      labelEn: aria2 download directory
-      type: text
-      required: true
-      edit: true
-    - envKey: WATCHTOWER_DOCKER_CONFIG
-      default: /var/lib/docker/config.json
-      labelZh: 主机 Docker 凭据文件路径
-      labelEn: Host Docker credentials file path
-      type: text
-      required: true
-      edit: true
