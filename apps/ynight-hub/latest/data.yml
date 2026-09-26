@@ -31,10 +31,10 @@ additionalProperties:
       type: number
       required: true
       edit: true
-    - envKey: REDIS_PASSWORD
+    - envKey: PANEL_REDIS_ROOT_PASSWORD
       default: ''
-      labelZh: Redis 密码
-      labelEn: Redis password
+      labelZh: Redis 密码（选择服务后自动填充）
+      labelEn: Redis password (auto-filled from service)
       type: password
       required: false
       edit: true

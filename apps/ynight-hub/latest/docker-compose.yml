@@ -9,10 +9,17 @@ services:
     env_file:
       - .env
       - ./conf/app.env
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
     environment:
       NODE_ENV: production
       TZ: Asia/Shanghai
       PORT: '3000'
+      REDIS_PASSWORD: ${PANEL_REDIS_ROOT_PASSWORD}
+      ES_NODE: http://elasticsearch:9200
+      ES_USERNAME: elastic
+      ES_PASSWORD: ${PANEL_ES_PASSWORD}
       DB_MYSQL_HOST: ${PANEL_DB_HOST}
       DB_MYSQL_PORT: ${PANEL_DB_PORT}
       DB_MYSQL_USERNAME: ${PANEL_DB_USER}
@@ -21,6 +28,7 @@ services:
     restart: unless-stopped
     networks:
       - 1panel-network
+      - elasticsearch-network
     healthcheck:
       test: ['CMD', 'wget', '--quiet', '--tries=1', '--spider', 'http://localhost:3000/api/health']
       interval: 30s
@@ -38,6 +46,42 @@ services:
           memory: 1G
         reservations:
           memory: 512M
+    labels:
+      createdBy: Apps
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.19.22
+    container_name: ${CONTAINER_NAME}-elasticsearch
+    environment:
+      discovery.type: single-node
+      xpack.security.enabled: 'true'
+      xpack.security.autoconfiguration.enabled: 'false'
+      xpack.security.http.ssl.enabled: 'false'
+      xpack.ml.enabled: 'false'
+      node.store.allow_mmap: 'false'
+      ELASTIC_PASSWORD: ${PANEL_ES_PASSWORD}
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+    networks:
+      - elasticsearch-network
+    healthcheck:
+      test: ['CMD-SHELL', 'curl -fsS -u "elastic:$$ELASTIC_PASSWORD" "http://localhost:9200/_cluster/health?wait_for_status=yellow&timeout=5s" >/dev/null']
+      interval: 30s
+      timeout: 10s
+      retries: 10
+      start_period: 90s
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: '10m'
+        max-file: '3'
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+        reservations:
+          memory: 1G
     labels:
       createdBy: Apps
 
@@ -59,3 +103,8 @@ services:
 networks:
   1panel-network:
     external: true
+  elasticsearch-network:
+    internal: true
+
+volumes:
+  elasticsearch-data:
