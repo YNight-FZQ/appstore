@@ -13,7 +13,7 @@ additionalProperties:
   description:
     zh: Tavily API 密钥池与代理管理面板
     en: Tavily API key pool and proxy management panel
-  type: tool
+  type: website
   crossVersionUpdate: false
   limit: 0
   recommend: 0
