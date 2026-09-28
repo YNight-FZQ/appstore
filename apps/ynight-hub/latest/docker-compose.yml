@@ -11,7 +11,7 @@ services:
       - ./conf/app.env
     depends_on:
       elasticsearch:
-        condition: service_healthy
+        condition: service_started
     environment:
       NODE_ENV: production
       TZ: Asia/Shanghai
@@ -59,6 +59,7 @@ services:
       xpack.security.http.ssl.enabled: 'false'
       xpack.ml.enabled: 'false'
       node.store.allow_mmap: 'false'
+      ES_JAVA_OPTS: '-Xms1g -Xmx1g'
       ELASTIC_PASSWORD: ${PANEL_ES_PASSWORD}
     volumes:
       - elasticsearch-data:/usr/share/elasticsearch/data
@@ -70,7 +71,8 @@ services:
       timeout: 10s
       retries: 10
       start_period: 90s
-    restart: unless-stopped
+    restart: on-failure:3
+    mem_limit: 2g
     logging:
       driver: json-file
       options:
