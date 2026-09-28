@@ -1,35 +1,26 @@
 #!/bin/bash
-# This script copies the version from docker-compose.yml to config.json.
+# 根据 Compose 镜像标签调整应用版本目录。
 
 app_name=$1
 old_version=$2
 
-# find all docker-compose files under apps/$app_name (there should be only one)
+# 查找当前应用版本的 Compose 文件。
 docker_compose_files=$(find apps/$app_name/$old_version -name docker-compose.yml)
 
 for docker_compose_file in $docker_compose_files
 do
-	# Assuming that the app version will be from the first docker image
+	# 使用第一个服务的镜像标签作为应用版本。
 	first_service=$(yq '.services | keys | .[0]' $docker_compose_file)
 
 	image=$(yq .services.$first_service.image $docker_compose_file)
 
-	# Only apply changes if the format is <image>:<version>
+	# 仅处理带版本标签的镜像。
 	if [[ "$image" == *":"* ]]; then
 	  version=$(cut -d ":" -f2- <<< "$image")
 
-	  # Trim the "v" prefix
+	  # 去掉版本前面的 v。
 	  trimmed_version=${version/#"v"}
 
-      target_version=$trimmed_version
-      if [[ "$app_name" == "vllm" ]]; then
-        case "$image" in
-          vllm/vllm-openai:*) target_version="nvidia-$trimmed_version" ;;
-          intel/llm-scaler-vllm:*) target_version="intel-$trimmed_version" ;;
-          quay.io/ascend/vllm-ascend:*) target_version="ascend-$trimmed_version" ;;
-        esac
-      fi
-
-      mv apps/$app_name/$old_version apps/$app_name/$target_version
+      mv apps/$app_name/$old_version apps/$app_name/$trimmed_version
     fi
 done

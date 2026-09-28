@@ -1,24 +1,15 @@
-# 1Panel App Store
+# 个人 1Panel 应用商店
 
-English | [简体中文](README_zh.md)
+本仓库按 1Panel v2 的应用包格式维护自用应用。`apps/` 目前只包含以下三个应用：
 
-The official repository for the [1Panel](https://github.com/1Panel-dev/1Panel) App Store, containing all applications available for installation via the [1Panel](https://github.com/1Panel-dev/1Panel) App Store.
+| 应用目录 | 用途 |
+| --- | --- |
+| [`apps/3xui`](apps/3xui) | Xray 管理面板 |
+| [`apps/lx-music-sync-server`](apps/lx-music-sync-server) | LX Music 数据同步服务 |
+| [`apps/ynight-hub`](apps/ynight-hub) | YNight Hub 后端服务 |
 
-### 1Panel App Store Listing Criteria:
+## 创建和维护应用
 
- - Well-known and active open-source projects
- - Significant installation base
- - Official Docker images provided
- - Other approved projects
+项目内的 [1Panel 应用 Skill](.agents/skills/1panel-app/SKILL.md) 提供应用包格式、安装表单配置、创建脚本、静态校验脚本及精选范例。新应用放入 `apps/<应用标识>/`，并按 Skill 中的步骤检查。
 
-## Issue Reporting
-
-If you encounter any problems during use or have additional feedback, please submit a GitHub Issue to the [main 1Panel repository](https://github.com/1Panel-dev/1Panel/issues).
-
-## Creating Local Applications
-
-[How to submit your own application](https://github.com/1Panel-dev/appstore/wiki/How-to-submit-your-own-application)
-
-You can also use [1Panel App Store Skills](https://github.com/1Panel-dev/1Panel-appstore-skills) to create application packages with AI coding tools. The skills provide packaging guidelines, templates, and validation steps for building 1Panel-compatible local application packages.
-
-The skills are also available on [ClawHub](https://clawhub.ai/1panel/1panel-appstore).
+本仓库是个人应用商店，不是 1Panel 官方应用商店。1Panel 项目及官方应用商店分别见 [1Panel](https://github.com/1Panel-dev/1Panel) 和 [1Panel 官方应用商店](https://github.com/1Panel-dev/appstore)。
