@@ -25,7 +25,7 @@ jobs:
           fi
 
           repo_name="${GITHUB_REPOSITORY#*/}"
-          gitea_host="git.ynight.tk"
+          gitea_host="git.ynight.top"
           namespace=""
           for owner in YNightOrg YNight; do
             status=$(curl -sS -o /dev/null -w '%{http_code}' \
