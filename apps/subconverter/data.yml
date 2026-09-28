@@ -1,0 +1,25 @@
+name: Subconverter
+tags:
+  - 实用工具
+title: 代理订阅格式转换工具
+description: 支持多种代理订阅格式转换，并提供可自行维护的分组和规则配置。
+additionalProperties:
+  key: subconverter
+  name: Subconverter
+  tags:
+    - Tool
+  shortDescZh: 代理订阅格式转换工具
+  shortDescEn: Proxy subscription format converter
+  description:
+    zh: 支持多种代理订阅格式转换，并提供可自行维护的分组和规则配置。
+    en: Convert proxy subscriptions with editable groups and rulesets.
+  type: tool
+  crossVersionUpdate: false
+  limit: 0
+  recommend: 0
+  website: https://github.com/tindy2013/subconverter
+  github: https://github.com/tindy2013/subconverter
+  document: https://github.com/tindy2013/subconverter/blob/master/README-cn.md
+  architectures:
+    - amd64
+    - arm64

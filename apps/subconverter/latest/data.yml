@@ -1,0 +1,23 @@
+additionalProperties:
+  formFields:
+    - envKey: PANEL_APP_PORT_HTTP
+      default: 15051
+      labelZh: 本机 HTTP 端口
+      labelEn: Local HTTP port
+      description:
+        zh: 仅绑定宿主机 127.0.0.1；默认端口为 15051。
+        en: Bound to 127.0.0.1 on the host; defaults to port 15051.
+      type: number
+      rule: paramPort
+      required: true
+      edit: true
+    - envKey: SUBCONVERTER_DEFAULT_URL
+      default: ''
+      labelZh: 默认订阅 URL（可选）
+      labelEn: Default subscription URL (optional)
+      description:
+        zh: 首次安装时写入主配置；留空则不设置。订阅链接可能包含访问凭据，请勿提交到版本库。
+        en: Written to the main config on first install. Leave empty to disable; keep subscription links out of Git.
+      type: password
+      required: false
+      edit: false

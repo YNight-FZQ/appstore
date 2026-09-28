@@ -1,11 +1,12 @@
 # 个人 1Panel 应用商店
 
-本仓库按 1Panel v2 的应用包格式维护自用应用。`apps/` 目前只包含以下三个应用：
+本仓库按 1Panel v2 的应用包格式维护自用应用。`apps/` 目前包含以下四个应用：
 
 | 应用目录 | 用途 |
 | --- | --- |
 | [`apps/3xui`](apps/3xui) | Xray 管理面板 |
 | [`apps/lx-music-sync-server`](apps/lx-music-sync-server) | LX Music 数据同步服务 |
+| [`apps/subconverter`](apps/subconverter) | 代理订阅格式转换工具 |
 | [`apps/ynight-hub`](apps/ynight-hub) | YNight Hub 后端服务 |
 
 ## 创建和维护应用

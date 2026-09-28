@@ -9,3 +9,9 @@
 
 # 本地生成的应用密钥文件
 apps/ynight-hub/latest/conf/app.env
+
+# Subconverter 安装时生成或自行维护的实际配置
+apps/subconverter/latest/conf/pref.toml
+apps/subconverter/latest/conf/auto_speed_test.ini
+apps/subconverter/latest/groups.toml
+apps/subconverter/latest/rulesets.toml

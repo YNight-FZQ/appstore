@@ -1,0 +1,22 @@
+[custom]
+; 保留订阅原格式，仅添加自动测速分组
+; 适用于 Clash / Clash.Meta / Stash
+
+; 自动测速组（每 300 秒测一次，延迟差 <50ms 不切换）
+custom_proxy_group=♻️ 自动选择`url-test`.*`http://www.gstatic.com/generate_204`300,,50
+
+; 手动选择组（默认指向自动测试结果）
+custom_proxy_group=🚀 节点选择`select`[]♻️ 自动选择`[]DIRECT
+
+; 直连 / 拦截 / 兜底
+custom_proxy_group=🎯 全球直连`select`[]DIRECT
+custom_proxy_group=🛑 全球拦截`select`[]REJECT`[]DIRECT
+custom_proxy_group=🐟 漏网之鱼`select`[]🚀 节点选择`[]🎯 全球直连`[]♻️ 自动选择`.*
+
+; 极简规则：国内直连，其余走代理
+ruleset=🎯 全球直连,[]GEOIP,CN
+ruleset=🎯 全球直连,[]GEOIP,LAN
+ruleset=🐟 漏网之鱼,[]FINAL
+
+enable_rule_generator=true
+overwrite_original_rules=true

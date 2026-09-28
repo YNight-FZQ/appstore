@@ -53,10 +53,11 @@ apps/<应用标识>/
 
 ## 当前仓库中的应用
 
-`apps/` 目前只保留以下 3 个自维护应用：
+`apps/` 目前包含以下 4 个自维护应用：
 
 - `apps/3xui`：单服务、两个端口及 `init.sh`；安装表单的两个 `boolean` 字段与所核对的 1Panel 版本不兼容，不要照搬。
 - `apps/lx-music-sync-server`：单服务、多个持久化目录和环境变量；两个 `boolean` 字段同样不兼容，固定的示例密码也不适合作为新应用默认值。
+- `apps/subconverter`：单服务、仅绑定宿主机回环地址、由 `init.sh` 生成配置文件和管理令牌；外部 INI 配置与 TOML 片段的覆盖关系需在说明中写清楚。
 - `apps/ynight-hub`：MySQL 与 Redis 关联、私有配置文件、多服务编排和 `init.sh`；自动更新安排属于该应用自身需求，不应默认复制到新应用。
 
 已删除的模板中，WordPress 的数据库类型联动、Palworld 的布尔选项、AList 的升级参数迁移有补充价值，其可复用片段保存在[精选配置范例](selected-patterns.md)，不再作为可安装应用留在 `apps/`。
