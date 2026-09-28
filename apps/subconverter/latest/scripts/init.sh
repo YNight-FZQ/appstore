@@ -49,7 +49,8 @@ if [ -e conf/pref.toml ] && [ ! -f conf/pref.toml ]; then
 fi
 if [ ! -e conf/pref.toml ]; then
     default_url="$(read_default_url)"
-    token="$(od -An -N32 -tx1 /dev/urandom | tr -d ' \n')"
+    # 取随机字节编码后的前十个字符，得到十位 URL 安全令牌。
+    token="$(head -c 9 /dev/urandom | base64 | tr '+/' '-_' | cut -c 1-10)"
     temp_file="$(mktemp conf/.pref.toml.XXXXXX)"
     trap 'rm -f "$temp_file"' EXIT
     awk -v token="$token" -v url="$default_url" '

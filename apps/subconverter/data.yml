@@ -13,7 +13,7 @@ additionalProperties:
   description:
     zh: 支持多种代理订阅格式转换，并提供可自行维护的分组和规则配置。
     en: Convert proxy subscriptions with editable groups and rulesets.
-  type: tool
+  type: website
   crossVersionUpdate: false
   limit: 0
   recommend: 0

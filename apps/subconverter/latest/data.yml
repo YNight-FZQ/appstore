@@ -16,7 +16,7 @@ additionalProperties:
       labelZh: 默认订阅 URL（可选）
       labelEn: Default subscription URL (optional)
       description:
-        zh: 首次安装时写入主配置；留空则不设置。订阅链接可能包含访问凭据，请勿提交到版本库。
+        zh: 首次安装时写入主配置；留空则不设置。启用 API 模式后，使用默认订阅的请求需附带 token。订阅链接可能包含访问凭据，请勿提交到版本库。
         en: Written to the main config on first install. Leave empty to disable; keep subscription links out of Git.
       type: password
       required: false

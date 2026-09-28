@@ -17,8 +17,10 @@ Subconverter 是代理订阅格式转换工具。本应用使用 `tindy2013/subc
 
 安装后的 `groups.toml` 和 `rulesets.toml` 提供与你给出的 INI 配置等价的简版内容，你可以直接替换为自己的完整文件。修改配置后，在 1Panel 中重启应用。检查服务可访问性：`curl http://127.0.0.1:15051/version`。
 
+首次安装生成的 `conf/pref.toml` 默认开启 API 模式，`api_access_token` 是 10 个随机的 URL 安全字符。API 模式下，使用 `default_url` 发起不带 `url` 的转换请求，或通过请求读取本地订阅和文件时，需要附加 `token=<api_access_token>`；令牌可在安装目录的 `conf/pref.toml` 中查看。请勿将带令牌的链接公开。已安装实例的配置文件不会被新的模板覆盖；若需采用此设置，请在实例的 `conf/pref.toml` 中自行设置 `api_mode = true` 并决定是否更换现有令牌，然后重启应用。
+
 默认转换使用 `pref.toml` 导入的 `groups.toml` 和 `rulesets.toml`。`auto_speed_test.ini` 作为可选外部配置，可在转换请求中添加 `config=config%2Fauto_speed_test.ini`；若希望所有未指定 `config` 的请求默认使用它，可在 `pref.toml` 的 `[common]` 段设置 `default_external_config = "config/auto_speed_test.ini"`。外部配置中的策略组和规则会覆盖主配置导入的片段，因此修改 `groups.toml`、`rulesets.toml` 时请留意所用配置来源。
 
-当前示例的 `overwrite_original_rules = true` 会覆盖原订阅规则；若要保留原规则，请同时检查主配置和所使用的外部配置。服务仅对宿主机回环地址开放，但同一 `1panel-network` 上的容器仍可访问容器端口。主配置中的 `api_access_token` 在首次安装时随机生成，用于保护管理接口。
+当前示例的 `overwrite_original_rules = true` 会覆盖原订阅规则；若要保留原规则，请同时检查主配置和所使用的外部配置。服务仅对宿主机回环地址开放，但同一 `1panel-network` 上的容器仍可访问容器端口。
 
 官方资料：[容器说明](https://github.com/tindy2013/subconverter/blob/master/README-docker.md)、[配置示例](https://github.com/tindy2013/subconverter/blob/master/base/pref.example.toml)、[中文文档](https://github.com/tindy2013/subconverter/blob/master/README-cn.md)。

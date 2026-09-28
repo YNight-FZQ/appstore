@@ -1,9 +1,9 @@
 version = 1
 [common]
-# API mode, set to true to prevent loading local subscriptions or serving local files directly
-api_mode = false
+# API 模式：限制未携带令牌的请求读取默认订阅和本地文件
+api_mode = true
 
-# Access token used for performing critical action through Web interface
+# 管理接口及 API 模式下受保护请求使用的令牌，由初始化脚本生成
 api_access_token = "__GENERATE_API_TOKEN__"
 
 # Default URLs, used when no URL is provided in request, use "|" to separate multiple subscription links, supports local files/URL
