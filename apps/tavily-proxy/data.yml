@@ -1,0 +1,25 @@
+name: Tavily Proxy Manager
+tags:
+  - 实用工具
+title: Tavily API 密钥池与代理管理面板
+description: Tavily API 密钥池与代理管理面板
+additionalProperties:
+  key: tavily-proxy
+  name: Tavily Proxy Manager
+  tags:
+    - Tool
+  shortDescZh: Tavily API 密钥池与代理管理面板
+  shortDescEn: Tavily API key pool and proxy management panel
+  description:
+    zh: Tavily API 密钥池与代理管理面板
+    en: Tavily API key pool and proxy management panel
+  type: tool
+  crossVersionUpdate: false
+  limit: 0
+  recommend: 0
+  architectures:
+    - amd64
+    - arm64
+  website: https://github.com/xuncv/TavilyProxyManager
+  github: https://github.com/xuncv/TavilyProxyManager
+  document: https://github.com/xuncv/TavilyProxyManager#readme

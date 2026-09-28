@@ -15,3 +15,7 @@ apps/subconverter/latest/conf/pref.toml
 apps/subconverter/latest/conf/auto_speed_test.ini
 apps/subconverter/latest/groups.toml
 apps/subconverter/latest/rulesets.toml
+
+# Tavily Proxy Manager 的运行数据和安装参数
+apps/tavily-proxy/latest/data/
+apps/tavily-proxy/latest/.env
