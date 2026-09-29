@@ -17,7 +17,7 @@ services:
       TZ: Asia/Shanghai
       PORT: '3000'
       REDIS_PASSWORD: ${PANEL_REDIS_ROOT_PASSWORD}
-      ES_NODE: http://elasticsearch:9200
+      ES_NODE: http://ynight-hub-elasticsearch:9200
       ES_USERNAME: elastic
       ES_PASSWORD: ${PANEL_ES_PASSWORD}
       DB_MYSQL_HOST: ${PANEL_DB_HOST}
@@ -64,7 +64,9 @@ services:
     volumes:
       - elasticsearch-data:/usr/share/elasticsearch/data
     networks:
-      - elasticsearch-network
+      elasticsearch-network:
+        aliases:
+          - ynight-hub-elasticsearch
     healthcheck:
       test: ['CMD-SHELL', 'curl -fsS -u "elastic:$$ELASTIC_PASSWORD" "http://localhost:9200/_cluster/health?wait_for_status=yellow&timeout=5s" >/dev/null']
       interval: 30s
