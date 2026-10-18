@@ -1,0 +1,25 @@
+name: LibreTV
+tags:
+  - 多媒体
+title: 轻量影视聚合搜索与直播播放工具
+description: 支持影视聚合搜索、直播、源订阅和浏览器续播的自托管工具。
+additionalProperties:
+  key: libretv
+  name: LibreTV
+  tags:
+    - Media
+  shortDescZh: 轻量影视聚合搜索与直播播放工具
+  shortDescEn: 轻量影视聚合搜索与直播播放工具
+  description:
+    zh: 支持影视聚合搜索、直播、源订阅和浏览器续播的自托管工具。
+    en: 支持影视聚合搜索、直播、源订阅和浏览器续播的自托管工具。
+  type: website
+  crossVersionUpdate: false
+  limit: 0
+  recommend: 0
+  architectures:
+    - amd64
+    - arm64
+  website: https://libretv.is-an.org/
+  github: https://github.com/LibreSpark/LibreTV
+  document: https://libretv.is-an.org/wiki/

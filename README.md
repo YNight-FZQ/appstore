@@ -1,10 +1,11 @@
 # 个人 1Panel 应用商店
 
-本仓库按 1Panel v2 的应用包格式维护自用应用。`apps/` 目前包含以下五个应用：
+本仓库按 1Panel v2 的应用包格式维护自用应用。`apps/` 目前包含以下六个应用：
 
 | 应用目录 | 用途 |
 | --- | --- |
 | [`apps/3xui`](apps/3xui) | Xray 管理面板 |
+| [`apps/libretv`](apps/libretv) | 影视聚合搜索与直播播放工具 |
 | [`apps/lx-music-sync-server`](apps/lx-music-sync-server) | LX Music 数据同步服务 |
 | [`apps/subconverter`](apps/subconverter) | 代理订阅格式转换工具 |
 | [`apps/tavily-proxy`](apps/tavily-proxy) | Tavily API 密钥池与代理管理面板 |

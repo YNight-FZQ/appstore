@@ -7,6 +7,9 @@
 # VSCode
 .vscode
 
+# LibreTV 安装时生成的密码和配置
+apps/libretv/*/.env
+
 # 本地生成的应用密钥文件
 apps/ynight-hub/latest/conf/app.env
 
