@@ -1,0 +1,25 @@
+name: Qoder2API-Hub
+tags:
+- 实用工具
+title: Qoder 双区多账号 OpenAI / Anthropic 兼容网关
+description: Qoder 双区多账号 OpenAI / Anthropic 兼容网关
+additionalProperties:
+  key: qoder2api-hub
+  name: Qoder2API-Hub
+  tags:
+  - Tool
+  shortDescZh: Qoder 双区多账号 OpenAI / Anthropic 兼容网关
+  shortDescEn: Multi-account Qoder gateway with OpenAI and Anthropic compatible APIs
+  description:
+    zh: Qoder 双区多账号 OpenAI / Anthropic 兼容网关
+    en: Multi-account Qoder gateway with OpenAI and Anthropic compatible APIs
+  type: website
+  crossVersionUpdate: false
+  limit: 0
+  recommend: 0
+  architectures:
+  - amd64
+  - arm64
+  website: https://github.com/shuishuipingan/qoder2api-hub
+  github: https://github.com/shuishuipingan/qoder2api-hub
+  document: https://github.com/shuishuipingan/qoder2api-hub/blob/v1.7.10/docs/deployment.md

@@ -1,0 +1,32 @@
+services:
+  qoder2api-hub:
+    image: ghcr.io/shuishuipingan/qoder2api-hub:1.7.10
+    container_name: ${CONTAINER_NAME}
+    restart: unless-stopped
+    environment:
+      HOST: 0.0.0.0
+      PORT: '8790'
+      TZ: Asia/Shanghai
+    ports:
+    - 127.0.0.1:${PANEL_APP_PORT_HTTP}:8790
+    volumes:
+    - ./accounts:/app/accounts
+    - ./usage:/app/usage
+    healthcheck:
+      test:
+      - CMD
+      - python
+      - -c
+      - import urllib.request; urllib.request.urlopen('http://127.0.0.1:8790/ping',
+        timeout=3)
+      interval: 60s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+    networks:
+    - 1panel-network
+    labels:
+      createdBy: Apps
+networks:
+  1panel-network:
+    external: true
