@@ -1,0 +1,162 @@
+additionalProperties:
+  formFields:
+  - default: 2053
+    envKey: PANEL_APP_PORT_HTTP
+    edit: true
+    labelZh: 面板本机端口
+    labelEn: Panel loopback port
+    label:
+      zh: 面板本机端口
+      en: Panel loopback port
+    description:
+      zh: 仅绑定 127.0.0.1，由现有 OpenResty 提供 HTTPS；容器内固定 2053。
+      en: Panel loopback port. Configure the matching inbound in 3x-ui after installation.
+    required: true
+    rule: paramPort
+    type: number
+  - default: 2096
+    envKey: PANEL_APP_PORT_SUB
+    edit: true
+    labelZh: 订阅本机端口
+    labelEn: Subscription loopback port
+    label:
+      zh: 订阅本机端口
+      en: Subscription loopback port
+    description:
+      zh: 仅绑定 127.0.0.1，由 OpenResty 转发订阅；容器内保持 2096。
+      en: Subscription loopback port. Configure the matching inbound in 3x-ui after
+        installation.
+    required: true
+    rule: paramPort
+    type: number
+  - default: 24441
+    envKey: PANEL_APP_PORT_VMESS
+    edit: true
+    labelZh: VMess WebSocket 后端端口
+    labelEn: VMess WebSocket backend
+    label:
+      zh: VMess WebSocket 后端端口
+      en: VMess WebSocket backend
+    description:
+      zh: 仅绑定 127.0.0.1；需在面板创建同端口 WS 入站，客户端通过 CDN 的 443 连接。
+      en: VMess WebSocket backend. Configure the matching inbound in 3x-ui after installation.
+    required: true
+    rule: paramPort
+    type: number
+  - default: 24442
+    envKey: PANEL_APP_PORT_VLESS
+    edit: true
+    labelZh: VLESS REALITY 节点端口
+    labelEn: VLESS REALITY port
+    label:
+      zh: VLESS REALITY 节点端口
+      en: VLESS REALITY port
+    description:
+      zh: IPv4 公开 TCP；需创建同端口 REALITY 入站，并核对 OCI 入站规则。
+      en: VLESS REALITY port. Configure the matching inbound in 3x-ui after installation.
+    required: true
+    rule: paramPort
+    type: number
+  - default: 24443
+    envKey: PANEL_APP_PORT_TROJAN
+    edit: true
+    labelZh: Trojan WebSocket 后端端口
+    labelEn: Trojan WebSocket backend
+    label:
+      zh: Trojan WebSocket 后端端口
+      en: Trojan WebSocket backend
+    description:
+      zh: 仅绑定 127.0.0.1；TLS 在 OpenResty 结束，需创建同端口的可信本机 WS 入站。
+      en: Trojan WebSocket backend. Configure the matching inbound in 3x-ui after
+        installation.
+    required: true
+    rule: paramPort
+    type: number
+  - default: 24444
+    envKey: PANEL_APP_PORT_SS
+    edit: true
+    labelZh: Shadowsocks 节点端口
+    labelEn: Shadowsocks TCP/UDP port
+    label:
+      zh: Shadowsocks 节点端口
+      en: Shadowsocks TCP/UDP port
+    description:
+      zh: IPv4 公开 TCP+UDP；需在面板创建同端口入站。
+      en: Shadowsocks TCP/UDP port. Configure the matching inbound in 3x-ui after
+        installation.
+    required: true
+    rule: paramPort
+    type: number
+  - default: 51821
+    envKey: PANEL_APP_PORT_WG
+    edit: true
+    labelZh: WireGuard 迁移测试端口
+    labelEn: WireGuard staging UDP port
+    label:
+      zh: WireGuard 迁移测试端口
+      en: WireGuard staging UDP port
+    description:
+      zh: 默认 51821/UDP，与现有 51820 服务并存；验证后再安排正式切换。
+      en: WireGuard staging UDP port. Configure the matching inbound in 3x-ui after
+        installation.
+    required: true
+    rule: paramPort
+    type: number
+  - default: 24445
+    envKey: PANEL_APP_PORT_MTPROTO
+    edit: true
+    labelZh: MTProto 节点端口
+    labelEn: MTProto TCP port
+    label:
+      zh: MTProto 节点端口
+      en: MTProto TCP port
+    description:
+      zh: IPv4 公开 TCP；需在面板创建同端口 FakeTLS 入站，用于 Telegram。
+      en: MTProto TCP port. Configure the matching inbound in 3x-ui after installation.
+    required: true
+    rule: paramPort
+    type: number
+  - default: xui.ynight.top
+    envKey: APP_PANEL_DOMAIN
+    edit: true
+    labelZh: 面板、订阅及 CDN 域名
+    labelEn: Panel/CDN hostname
+    label:
+      zh: 面板、订阅及 CDN 域名
+      en: Panel/CDN hostname
+    description:
+      zh: 用于生成配置说明和反代示例，不会修改 DNS 或自动应用反代。
+      en: Hostname used by the generated setup notes; no DNS changes are made.
+    required: true
+    type: text
+  - default: node.fzq.dpdns.org
+    envKey: APP_NODE_DOMAIN
+    edit: true
+    labelZh: 直连节点域名
+    labelEn: Direct-node hostname
+    label:
+      zh: 直连节点域名
+      en: Direct-node hostname
+    description:
+      zh: 用于生成直连节点配置说明，不会修改 DNS 或自动创建节点。
+      en: Hostname used by the generated setup notes; no DNS changes are made.
+    required: true
+    type: text
+  - default: 'true'
+    envKey: XUI_ENABLE_FAIL2BAN
+    edit: true
+    labelZh: 启用容器内 Fail2ban
+    labelEn: Enable container Fail2ban
+    label:
+      zh: 启用容器内 Fail2ban
+      en: Enable container Fail2ban
+    description:
+      zh: 用于面板支持的客户端 IP 限制，不修改宿主机 SSH 的 Fail2ban 配置。
+      en: Enforce supported client IP limits inside this container.
+    required: true
+    type: select
+    values:
+    - label: 开启 / Enabled
+      value: 'true'
+    - label: 关闭 / Disabled
+      value: 'false'

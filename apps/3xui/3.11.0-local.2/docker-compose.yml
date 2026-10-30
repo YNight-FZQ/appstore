@@ -1,0 +1,56 @@
+services:
+  3xui:
+    image: ghcr.io/mhsanaei/3x-ui:v3.11.0@sha256:1628adbd9bed680d25d6f714bef4a20f132105f4612ea294952f6665dad32e5b
+    container_name: ${CONTAINER_NAME}
+    restart: unless-stopped
+    tty: true
+    cap_add:
+    - NET_ADMIN
+    - NET_RAW
+    security_opt:
+    - no-new-privileges:true
+    networks:
+    - 1panel-network
+    ports:
+    - 127.0.0.1:${PANEL_APP_PORT_HTTP}:2053/tcp
+    - 127.0.0.1:${PANEL_APP_PORT_SUB}:2096/tcp
+    - 127.0.0.1:${PANEL_APP_PORT_VMESS}:${PANEL_APP_PORT_VMESS}/tcp
+    - 127.0.0.1:${PANEL_APP_PORT_TROJAN}:${PANEL_APP_PORT_TROJAN}/tcp
+    - 0.0.0.0:${PANEL_APP_PORT_VLESS}:${PANEL_APP_PORT_VLESS}/tcp
+    - 0.0.0.0:${PANEL_APP_PORT_SS}:${PANEL_APP_PORT_SS}/tcp
+    - 0.0.0.0:${PANEL_APP_PORT_SS}:${PANEL_APP_PORT_SS}/udp
+    - 0.0.0.0:${PANEL_APP_PORT_WG}:${PANEL_APP_PORT_WG}/udp
+    - 0.0.0.0:${PANEL_APP_PORT_MTPROTO}:${PANEL_APP_PORT_MTPROTO}/tcp
+    volumes:
+    - ./data/db:/etc/x-ui
+    - ./data/cert:/root/cert:ro
+    - ./data/acme:/root/.acme.sh
+    - ./data/logs:/var/log/x-ui
+    - ./data/ready:/run/3xui-ready:ro
+    environment:
+      TZ: Asia/Shanghai
+      XRAY_VMESS_AEAD_FORCED: 'true'
+      XUI_ENABLE_FAIL2BAN: ${XUI_ENABLE_FAIL2BAN}
+      XUI_LOG_FOLDER: /var/log/x-ui
+    labels:
+      createdBy: Apps
+      com.centurylinklabs.watchtower.enable: 'false'
+      local.template.revision: 3.11.0-local.2
+    healthcheck:
+      test:
+      - CMD
+      - bash
+      - -c
+      - test -f /run/3xui-ready/complete.json && exec 3<>/dev/tcp/127.0.0.1/2053
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 90s
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: '3'
+networks:
+  1panel-network:
+    external: true

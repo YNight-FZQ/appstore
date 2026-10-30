@@ -1,29 +1,19 @@
-## Introduction
+# 3X-UI one-click six-protocol local app
 
-**3X-UI** is an open-source, powerful Xray panel that provides an intuitive web interface to manage and monitor the Xray core.
+Select 3.11.0-local.2. The OnePanel installation hook starts the managed official 3.11.0 container, safely generates administrator/node credentials, creates six inbounds and their public Hosts, enables subscriptions, configures the existing matching OpenResty HTTPS site, and exports client profiles.
 
-Key features:
+Keep the prefilled hostnames and ports for this server. Administrator credentials may be left blank for secure runtime generation. Read data/INSTALL-RESULT.md in the installed app directory after installation. It contains credentials and must remain private.
 
-- **Multi-protocol support**: Vmess, Vless, Trojan, ShadowSocks, Wireguard, Hysteria, Tunnel, Mixed, HTTP, Tun, MTProto, AmneziaWG, etc.
-- **Multi-user management**: Create users, set traffic limits, monitor usage, manage expirations
-- **Multi-language UI**: Built-in support for Chinese, English, Russian, Persian, Arabic and 10+ other languages
-- **Security**: Built-in Fail2ban, forced VMess AEAD encryption, TLS certificate management
-- **Subscription links**: Auto-generated subscription links compatible with major clients
+Restarts preserve the database and generated identities. The proxy container does not mount Docker's socket. Only the application's managed proxy file is installed or removed, with configuration validation and rollback.
 
-For more information:
+The existing HTTPS site, DNS and cloud firewall are prerequisites. OCI/Cloudflare control-plane rules cannot be changed without their management access. The existing independent WireGuard stays running; the new inbound defaults to UDP 51821.
 
-- [Official documentation](https://docs.sanaei.dev/)
-- [GitHub repository](https://github.com/MHSanaei/3x-ui)
+See CONFIGURATION.md for field definitions, lifecycle behavior and validation boundaries. Prior local.1 and 3.8.5 templates remain as references. Upstream: https://github.com/MHSanaei/3x-ui . License: GPL-3.0.
 
-## Usage
+## Upgrade and validation boundary
 
-1. After installation, open `http://SERVER_IP:panel_port` to access the 3X-UI panel
-2. On first visit, you'll be prompted to set an admin username and password
-3. Use the panel to create users and inbounds for various proxy protocols
-4. The default Xray inbound port is `8443` (configurable during installation)
+Cross-version upgrades are disabled: older installations do not have the one-click state and readiness marker, and the supplied upgrade hook does not migrate them. Back up existing databases and plan migration separately.
 
-## Notes
+The default domains come from the supplied archive and must match the deployment. Automatic proxy configuration requires an existing HTTPS site with a matching valid certificate and a host-networked 1Panel OpenResty container. The host needs Python 3, Docker Compose, OpenSSL, ss and nsenter, with a root installation hook.
 
-- The panel listens on port `2053` by default; the Xray inbound port is `8443` by default. Make sure your firewall allows traffic on these ports
-- Database and certificates are persisted to `data/db` and `data/cert` — back these up regularly
-- This project is licensed under **GPL-3.0**
+This repository import does not perform server installation. The archive's integration reports are historical evidence supplied with the attachment, not tests rerun here. See VALIDATION.md for the checks performed during this import.

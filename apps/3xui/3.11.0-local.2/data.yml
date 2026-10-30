@@ -1,0 +1,235 @@
+additionalProperties:
+  formFields:
+  - default: 2053
+    envKey: PANEL_APP_PORT_HTTP
+    edit: false
+    labelZh: 面板本机端口
+    labelEn: Panel loopback port
+    label:
+      zh: 面板本机端口
+      en: Panel loopback port
+    description:
+      zh: 仅绑定 127.0.0.1，由现有 OpenResty 提供 HTTPS；容器内固定 2053。
+      en: Panel loopback port. Configure the matching inbound in 3x-ui after installation.
+    required: true
+    rule: paramPort
+    type: number
+  - default: 2096
+    envKey: PANEL_APP_PORT_SUB
+    edit: false
+    labelZh: 订阅本机端口
+    labelEn: Subscription loopback port
+    label:
+      zh: 订阅本机端口
+      en: Subscription loopback port
+    description:
+      zh: 仅绑定 127.0.0.1，由 OpenResty 转发订阅；容器内保持 2096。
+      en: Subscription loopback port. Configure the matching inbound in 3x-ui after
+        installation.
+    required: true
+    rule: paramPort
+    type: number
+  - default: xui.ynight.top
+    envKey: APP_PANEL_DOMAIN
+    edit: false
+    labelZh: 面板、订阅及 CDN 域名
+    labelEn: Panel/CDN hostname
+    label:
+      zh: 面板、订阅及 CDN 域名
+      en: Panel/CDN hostname
+    description:
+      zh: 安装时自动创建入站与 Hosts，生成订阅并接入现有 HTTPS 网站；保持已生效的域名。
+      en: Hostname used by the generated setup notes; no DNS changes are made.
+    required: true
+    type: text
+  - default: node.fzq.dpdns.org
+    envKey: APP_NODE_DOMAIN
+    edit: false
+    labelZh: 直连节点域名
+    labelEn: Direct-node hostname
+    label:
+      zh: 直连节点域名
+      en: Direct-node hostname
+    description:
+      zh: 安装时自动创建入站与 Hosts，生成订阅并接入现有 HTTPS 网站；保持已生效的域名。
+      en: Hostname used by the generated setup notes; no DNS changes are made.
+    required: true
+    type: text
+  - envKey: APP_ADMIN_USER
+    default: ''
+    type: text
+    required: false
+    labelZh: 管理员用户名（留空自动生成）
+    labelEn: Admin username (blank generates one)
+    description:
+      zh: 留空生成随机用户名，安装结果保存在本应用的私密文件中。
+      en: Generated at install time if empty.
+    edit: false
+    label:
+      zh: 管理员用户名（留空自动生成）
+      en: Admin username (blank generates one)
+  - envKey: APP_ADMIN_PASSWORD
+    default: ''
+    type: password
+    required: false
+    labelZh: 管理员密码（留空自动生成）
+    labelEn: Admin password (blank generates one)
+    description:
+      zh: 留空自动生成强密码；自填至少16个字符，不会输出到任务日志。
+      en: Blank generates a strong password; otherwise use at least 16 characters.
+    edit: false
+    label:
+      zh: 管理员密码（留空自动生成）
+      en: Admin password (blank generates one)
+  - envKey: APP_REALITY_TARGET
+    default: www.microsoft.com:443
+    type: text
+    required: true
+    labelZh: REALITY 目标站点
+    labelEn: REALITY target
+    description:
+      zh: 格式为域名:端口。运行配置会自动生成，实际电信/联通与客户端兼容性仍需连接验证。
+      en: TLS target in hostname:port form.
+    edit: false
+    label:
+      zh: REALITY 目标站点
+      en: REALITY target
+  - envKey: APP_MTP_DOMAIN
+    default: www.cloudflare.com
+    type: text
+    required: true
+    labelZh: MTProto FakeTLS 域名
+    labelEn: MTProto FakeTLS name
+    description:
+      zh: 用于生成Telegram Secret，证书不需要复制到容器。
+      en: Hostname encoded in the generated Telegram secret.
+    edit: false
+    label:
+      zh: MTProto FakeTLS 域名
+      en: MTProto FakeTLS name
+  - envKey: APP_AUTO_OPENRESTY
+    default: 'true'
+    type: select
+    required: true
+    labelZh: 自动接入现有 OpenResty 网站
+    labelEn: Configure existing OpenResty HTTPS site
+    description:
+      zh: 默认自动查找面板域名的现有HTTPS站点，生成本应用反代并校验后重载；失败回滚。关闭仅适合已自行配置等效反代的情况。
+      en: Install a scoped proxy snippet on the existing matching HTTPS site with
+        validation and rollback.
+    values:
+    - label: 自动配置（推荐） / Automatic
+      value: 'true'
+    - label: 我已配置反代 / Already managed separately
+      value: 'false'
+    edit: false
+    label:
+      zh: 自动接入现有 OpenResty 网站
+      en: Configure existing OpenResty HTTPS site
+  - default: 24441
+    envKey: PANEL_APP_PORT_VMESS
+    edit: false
+    labelZh: VMess WebSocket 后端端口
+    labelEn: VMess WebSocket backend
+    label:
+      zh: VMess WebSocket 后端端口
+      en: VMess WebSocket backend
+    description:
+      zh: 仅绑定 127.0.0.1；安装时自动创建同端口 WS 入站，客户端通过 CDN 的 443 连接。
+      en: VMess WebSocket backend. The matching inbound is created automatically during
+        installation.
+    required: true
+    rule: paramPort
+    type: number
+  - default: 24442
+    envKey: PANEL_APP_PORT_VLESS
+    edit: false
+    labelZh: VLESS REALITY 节点端口
+    labelEn: VLESS REALITY port
+    label:
+      zh: VLESS REALITY 节点端口
+      en: VLESS REALITY port
+    description:
+      zh: IPv4 公开 TCP；安装时自动创建同端口 REALITY 入站，并核对 OCI 入站规则。
+      en: VLESS REALITY port. The matching inbound is created automatically during
+        installation.
+    required: true
+    rule: paramPort
+    type: number
+  - default: 24443
+    envKey: PANEL_APP_PORT_TROJAN
+    edit: false
+    labelZh: Trojan WebSocket 后端端口
+    labelEn: Trojan WebSocket backend
+    label:
+      zh: Trojan WebSocket 后端端口
+      en: Trojan WebSocket backend
+    description:
+      zh: 仅绑定 127.0.0.1；TLS 在 OpenResty 结束，安装时自动创建同端口的可信本机 WS 入站。
+      en: Trojan WebSocket backend. The matching inbound is created automatically
+        during installation.
+    required: true
+    rule: paramPort
+    type: number
+  - default: 24444
+    envKey: PANEL_APP_PORT_SS
+    edit: false
+    labelZh: Shadowsocks 节点端口
+    labelEn: Shadowsocks TCP/UDP port
+    label:
+      zh: Shadowsocks 节点端口
+      en: Shadowsocks TCP/UDP port
+    description:
+      zh: IPv4 公开 TCP+UDP；安装时自动创建同端口入站。
+      en: Shadowsocks TCP/UDP port. The matching inbound is created automatically
+        during installation.
+    required: true
+    rule: paramPort
+    type: number
+  - default: 51821
+    envKey: PANEL_APP_PORT_WG
+    edit: false
+    labelZh: WireGuard 迁移测试端口
+    labelEn: WireGuard staging UDP port
+    label:
+      zh: WireGuard 迁移测试端口
+      en: WireGuard staging UDP port
+    description:
+      zh: 默认 51821/UDP，与现有 51820 服务并存；验证后再安排正式切换。
+      en: WireGuard staging UDP port. The matching inbound is created automatically
+        during installation.
+    required: true
+    rule: paramPort
+    type: number
+  - default: 24445
+    envKey: PANEL_APP_PORT_MTPROTO
+    edit: false
+    labelZh: MTProto 节点端口
+    labelEn: MTProto TCP port
+    label:
+      zh: MTProto 节点端口
+      en: MTProto TCP port
+    description:
+      zh: IPv4 公开 TCP；安装时自动创建同端口 FakeTLS 入站，用于 Telegram。
+      en: MTProto TCP port. The matching inbound is created automatically during installation.
+    required: true
+    rule: paramPort
+    type: number
+  - default: 'true'
+    envKey: XUI_ENABLE_FAIL2BAN
+    edit: true
+    labelZh: 启用容器内 Fail2ban
+    labelEn: Enable container Fail2ban
+    label:
+      zh: 启用容器内 Fail2ban
+      en: Enable container Fail2ban
+    description:
+      zh: 用于面板支持的客户端 IP 限制，不修改宿主机 SSH 的 Fail2ban 配置。
+      en: Enforce supported client IP limits inside this container.
+    required: true
+    type: select
+    values:
+    - label: 开启 / Enabled
+      value: 'true'
+    - label: 关闭 / Disabled
+      value: 'false'

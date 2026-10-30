@@ -4,7 +4,7 @@
 
 | 应用目录 | 用途 |
 | --- | --- |
-| [`apps/3xui`](apps/3xui) | Xray 管理面板 |
+| [`apps/3xui`](apps/3xui) | Xray 管理面板与六协议一键初始化 |
 | [`apps/libretv`](apps/libretv) | 影视聚合搜索与直播播放工具 |
 | [`apps/lx-music-sync-server`](apps/lx-music-sync-server) | LX Music 数据同步服务 |
 | [`apps/qoder2api-hub`](apps/qoder2api-hub) | Qoder 双区多账号 OpenAI / Anthropic 兼容网关 |

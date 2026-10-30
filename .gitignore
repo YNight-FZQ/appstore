@@ -22,3 +22,9 @@ apps/subconverter/latest/rulesets.toml
 # Tavily Proxy Manager 的运行数据和安装参数
 apps/tavily-proxy/latest/data/
 apps/tavily-proxy/latest/.env
+
+# 3X-UI installation parameters and generated credentials/data
+apps/3xui/*/.env
+apps/3xui/*/data/*
+!apps/3xui/*/data/.gitkeep
+apps/3xui/**/__pycache__/

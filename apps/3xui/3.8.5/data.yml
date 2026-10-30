@@ -94,8 +94,12 @@ additionalProperties:
         zh: "强制启用 VMess AEAD 加密（建议）。允许值：true / false。"
         tr: "VMess AEAD şifrelemesini zorla etkinleştir (önerilir). İzin verilen değerler: true / false."
       required: true
-      rule: paramBool
-      type: boolean
+      type: select
+      values:
+        - label: 开启 / Enabled
+          value: 'true'
+        - label: 关闭 / Disabled
+          value: 'false'
     - default: 'true'
       envKey: XUI_ENABLE_FAIL2BAN
       edit: true
@@ -126,5 +130,9 @@ additionalProperties:
         zh: "启用内置 fail2ban 防护。允许值：true / false。"
         tr: "Dahili fail2ban korumasını etkinleştir. İzin verilen değerler: true / false."
       required: true
-      rule: paramBool
-      type: boolean
+      type: select
+      values:
+        - label: 开启 / Enabled
+          value: 'true'
+        - label: 关闭 / Disabled
+          value: 'false'
