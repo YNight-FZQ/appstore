@@ -1,0 +1,25 @@
+name: FreeLLMAPI
+tags:
+- 实用工具
+title: 多服务商 LLM API 聚合、自动路由与故障切换
+description: 多服务商 LLM API 聚合、自动路由与故障切换
+additionalProperties:
+  key: freellmapi
+  name: FreeLLMAPI
+  tags:
+  - Tool
+  shortDescZh: 多服务商 LLM API 聚合、自动路由与故障切换
+  shortDescEn: Multi-provider LLM gateway with routing and failover
+  description:
+    zh: 多服务商 LLM API 聚合、自动路由与故障切换
+    en: Multi-provider LLM gateway with routing and failover
+  type: website
+  crossVersionUpdate: false
+  limit: 0
+  recommend: 0
+  architectures:
+  - amd64
+  - arm64
+  website: https://freellmapi.co
+  github: https://github.com/tashfeenahmed/freellmapi
+  document: https://github.com/tashfeenahmed/freellmapi/blob/v0.16.14/docker/README.md

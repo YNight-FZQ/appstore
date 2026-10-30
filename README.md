@@ -1,10 +1,11 @@
 # 个人 1Panel 应用商店
 
-本仓库按 1Panel v2 的应用包格式维护自用应用。`apps/` 目前包含以下七个应用：
+本仓库按 1Panel v2 的应用包格式维护自用应用。`apps/` 目前包含以下八个应用：
 
 | 应用目录 | 用途 |
 | --- | --- |
 | [`apps/3xui`](apps/3xui) | Xray 管理面板与六协议一键初始化 |
+| [`apps/freellmapi`](apps/freellmapi) | 多服务商 LLM API 聚合与自动故障切换 |
 | [`apps/libretv`](apps/libretv) | 影视聚合搜索与直播播放工具 |
 | [`apps/lx-music-sync-server`](apps/lx-music-sync-server) | LX Music 数据同步服务 |
 | [`apps/qoder2api-hub`](apps/qoder2api-hub) | Qoder 双区多账号 OpenAI / Anthropic 兼容网关 |

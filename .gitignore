@@ -28,3 +28,8 @@ apps/3xui/*/.env
 apps/3xui/*/data/*
 !apps/3xui/*/data/.gitkeep
 apps/3xui/**/__pycache__/
+
+# FreeLLMAPI encryption key, installation parameters and runtime data
+apps/freellmapi/*/.env
+apps/freellmapi/*/conf/app.env
+apps/freellmapi/*/data/
