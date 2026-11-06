@@ -64,6 +64,7 @@ services:
     volumes:
       - elasticsearch-data:/usr/share/elasticsearch/data
     networks:
+      1panel-network: {}
       elasticsearch-network:
         aliases:
           - ynight-hub-elasticsearch
@@ -101,6 +102,8 @@ services:
       TZ: Asia/Shanghai
     restart: unless-stopped
     command: ${CONTAINER_NAME}
+    networks:
+      - 1panel-network
     labels:
       createdBy: Apps
 
