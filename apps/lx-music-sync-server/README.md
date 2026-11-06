@@ -1,5 +1,9 @@
 ## 产品介绍
 
+> 最新新增版本：`2.1.4`（旧版 `2.1.1` 保留）。请先备份数据；本次仅核对上游配置，尚未完成 1Panel 实机或容器启动验证。新版本安装表单要求设置后台和播放器密码，并将后台密码传入上游 ADMIN_PASSWORD；旧版现有安装也请检查实际后台密码。
+
+
+
 **LX Music Sync Server（增强版）** 是基于 [lyswhut/lx-music-sync-server](https://github.com/lyswhut/lx-music-sync-server) 的增强版本，除了 LX Music 桌面端的数据同步功能外，还内置了一个功能强大的 **Web 播放器**。
 
 主要特性：
