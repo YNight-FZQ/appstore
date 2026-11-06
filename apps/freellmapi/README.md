@@ -1,18 +1,22 @@
 # FreeLLMAPI
 
+> 最新新增版本：`0.16.20`（旧版 `0.16.20` 保留）。请先备份数据；本次仅核对上游配置，尚未完成 1Panel 实机或容器启动验证。
+
+
+
 FreeLLMAPI 是一个本地优先、单用户的多服务商 LLM 网关。它将用户添加的服务商密钥及自建 OpenAI 兼容端点聚合到统一 API，提供路由、限流跟踪、故障切换和 Web 看板。项目采用 MIT 许可。
 
 ## 适配结论
 
 可以封装为 1Panel 应用：上游提供 `linux/amd64`、`linux/arm64` 的预构建镜像，Express API 与构建后的 React 看板由同一进程在 `3001` 端口提供服务；SQLite 存储在 `/app/server/data`，不依赖额外 MySQL、Redis 或 GPU。
 
-本包固定上游正式版 **v0.16.14**，镜像为 `ghcr.io/tashfeenahmed/freellmapi:v0.16.14`。运行镜像以 root 入口修正数据目录属主，再降权为 `node` 用户启动服务，沿用上游行为。
+本包固定上游正式版 **v0.16.20**，镜像为 `ghcr.io/tashfeenahmed/freellmapi:v0.16.20`。运行镜像以 root 入口修正数据目录属主，再降权为 `node` 用户启动服务，沿用上游行为。
 
 主要能力包括 OpenAI 兼容 `/v1`、Anthropic Messages、Responses，以及按服务商实际能力提供的媒体与嵌入接口。模型池、可用性和额度取决于你添加的服务商账号，不是自带的无限免费服务。路由器本身采用 MIT 许可；上游实时目录有 Premium 服务，免费目录更新存在延迟，详见上游说明。
 
 ## 安装
 
-将 `freellmapi` 应用目录放入目标面板安装路径下的 `1panel/resource/apps/local/`，同步本地应用后选择 `0.16.14`。需要已有 `1panel-network` 网络，并允许执行安装脚本。宿主机初始化需要 Bash、OpenSSL 及常规 coreutils/grep；不需要宿主机安装 Node.js。
+将 `freellmapi` 应用目录放入目标面板安装路径下的 `1panel/resource/apps/local/`，同步本地应用后选择 `0.16.20`。需要已有 `1panel-network` 网络，并允许执行安装脚本。宿主机初始化需要 Bash、OpenSSL 及常规 coreutils/grep；不需要宿主机安装 Node.js。
 
 安装表单：
 
@@ -51,13 +55,13 @@ OpenAI 兼容客户端的 Base URL 使用 `http://127.0.0.1:3001/v1`（或实际
 
 调研日期：2026-10-30。参数依据上游正式版：
 
-- [发布记录 v0.16.14](https://github.com/tashfeenahmed/freellmapi/releases/tag/v0.16.14)
-- [Docker 部署说明](https://github.com/tashfeenahmed/freellmapi/blob/v0.16.14/docker/README.md)
-- [Dockerfile](https://github.com/tashfeenahmed/freellmapi/blob/v0.16.14/Dockerfile) 与 [入口脚本](https://github.com/tashfeenahmed/freellmapi/blob/v0.16.14/docker-entrypoint.sh)
-- [环境变量](https://github.com/tashfeenahmed/freellmapi/blob/v0.16.14/.env.example) 与 [密钥校验实现](https://github.com/tashfeenahmed/freellmapi/blob/v0.16.14/server/src/lib/crypto.ts)
-- [镜像发布与架构](https://github.com/tashfeenahmed/freellmapi/blob/v0.16.14/.github/workflows/docker.yml)
-- [中文项目介绍及 Premium 边界](https://github.com/tashfeenahmed/freellmapi/blob/v0.16.14/README.zh-cn.md)
+- [发布记录 v0.16.20](https://github.com/tashfeenahmed/freellmapi/releases/tag/v0.16.20)
+- [Docker 部署说明](https://github.com/tashfeenahmed/freellmapi/blob/v0.16.20/docker/README.md)
+- [Dockerfile](https://github.com/tashfeenahmed/freellmapi/blob/v0.16.20/Dockerfile) 与 [入口脚本](https://github.com/tashfeenahmed/freellmapi/blob/v0.16.20/docker-entrypoint.sh)
+- [环境变量](https://github.com/tashfeenahmed/freellmapi/blob/v0.16.20/.env.example) 与 [密钥校验实现](https://github.com/tashfeenahmed/freellmapi/blob/v0.16.20/server/src/lib/crypto.ts)
+- [镜像发布与架构](https://github.com/tashfeenahmed/freellmapi/blob/v0.16.20/.github/workflows/docker.yml)
+- [中文项目介绍及 Premium 边界](https://github.com/tashfeenahmed/freellmapi/blob/v0.16.20/README.zh-cn.md)
 
-`logo.png` 根据上游 `client/public/favicon.svg` 的品牌圆点和路由环矢量参数栅格化，使用本项目自身标识。上游 [MIT 许可证](https://github.com/tashfeenahmed/freellmapi/blob/v0.16.14/LICENSE) 见本目录 `LICENSE.upstream`。
+`logo.png` 根据上游 `client/public/favicon.svg` 的品牌圆点和路由环矢量参数栅格化，使用本项目自身标识。上游 [MIT 许可证](https://github.com/tashfeenahmed/freellmapi/blob/v0.16.20/LICENSE) 见本目录 `LICENSE.upstream`。
 
 本次完成 YAML、表单引用、PNG、Shell 语法、Compose 配置及密钥生成/保留/丢失/损坏等场景检查。环境没有 Ruby，仓库 Ruby 检查器无法执行，使用 Python 验证同类静态规则。未执行镜像拉取、容器启动、1Panel 实机安装、注册或真实推理验收。

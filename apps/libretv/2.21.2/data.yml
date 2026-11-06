@@ -1,0 +1,96 @@
+additionalProperties:
+  formFields:
+    - envKey: PANEL_APP_PORT_HTTP
+      default: 18080
+      labelZh: 本机 HTTP 端口
+      description:
+        zh: 默认绑定宿主机 127.0.0.1:18080，可通过 1Panel 关联网站和域名。
+      type: number
+      rule: paramPort
+      required: true
+      edit: true
+    - envKey: PASSWORD
+      default: ''
+      labelZh: 访问密码
+      description:
+        zh: 所有访客共用此密码；请自行设置强密码，安装包不提供默认密码。
+      type: password
+      required: true
+      edit: true
+    - envKey: PROXY_SECRET
+      default: ''
+      labelZh: 独立会话签名密钥（可选）
+      description:
+        zh: 留空时由访问密码派生；多实例部署时可填写同一独立密钥，更换密钥将使旧会话失效。
+      type: password
+      required: false
+      edit: true
+    - envKey: COOKIE_SECURE
+      default: ''
+      labelZh: 会话 Cookie 安全策略
+      description:
+        zh: 默认根据转发协议判断；HTTPS 反向代理应正确传递 x-forwarded-proto，公网使用建议强制 HTTPS。
+      type: select
+      required: false
+      edit: true
+      values:
+        - label: 自动（根据访问协议）
+          value: ''
+        - label: 强制 HTTPS
+          value: 'true'
+        - label: 允许 HTTP（仅可信局域网）
+          value: 'false'
+    - envKey: DEFAULT_SOURCES
+      default: >-
+        [{"name":"非凡资源","url":"https://api.ffzyapi.com/api.php/provide/vod","isAdult":false},{"name":"暴风资源","url":"https://bfzyapi.com/api.php/provide/vod","isAdult":false}]
+      labelZh: 预置点播源（可选）
+      description:
+        zh: 默认预置非凡、暴风两个公开接口；可编辑 JSON 数组，填写 [] 可关闭预置。预置地址在登录前可读取，请勿填写私密令牌。
+      type: text
+      required: false
+      edit: true
+    - envKey: DEFAULT_LIVE_SOURCES
+      default: >-
+        [{"name":"IPTV-org 中文频道","url":"https://iptv-org.github.io/iptv/languages/zho.m3u"}]
+      labelZh: 预置直播源（可选）
+      description:
+        zh: 默认预置 IPTV-org 中文频道列表；频道可用性随网络变化，请在站内测活后选择。填写 [] 可关闭预置，预置地址在登录前可读取。
+      type: text
+      required: false
+      edit: true
+    - envKey: DEFAULT_SUBSCRIPTIONS
+      default: '[]'
+      labelZh: 预置源订阅（可选）
+      description:
+        zh: 填写订阅地址的 JSON 数组，支持上游规定的源列表和部分 TVBOX 配置；预置地址在登录前可读取。
+      type: text
+      required: false
+      edit: true
+    - envKey: DEFAULT_RECOMMEND_SOURCE
+      default: hot-list
+      labelZh: 默认首页推荐
+      description:
+        zh: 仅影响尚未自行选择推荐来源的用户；已有浏览器设置优先。
+      type: select
+      required: true
+      edit: true
+      values:
+        - label: 影视榜单
+          value: hot-list
+        - label: 豆瓣
+          value: douban
+        - label: Bangumi 番剧
+          value: bangumi
+    - envKey: LIVE_ALLOW_PRIVATE
+      default: '0'
+      labelZh: 允许访问内网直播源
+      description:
+        zh: 自建内网 IPTV（网络电视）时按需开启，对播放列表、测活和直播流代理生效。
+      type: select
+      required: true
+      edit: true
+      values:
+        - label: 关闭
+          value: '0'
+        - label: 开启
+          value: '1'
