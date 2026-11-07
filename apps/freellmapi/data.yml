@@ -22,4 +22,4 @@ additionalProperties:
   - arm64
   website: https://freellmapi.co
   github: https://github.com/tashfeenahmed/freellmapi
-  document: https://github.com/tashfeenahmed/freellmapi/blob/v0.16.14/docker/README.md
+  document: https://github.com/tashfeenahmed/freellmapi/blob/v0.16.20/docker/README.md

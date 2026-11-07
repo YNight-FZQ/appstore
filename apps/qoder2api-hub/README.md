@@ -1,6 +1,6 @@
 # Qoder2API-Hub
 
-> 最新新增版本：`1.8.0`（旧版 `1.8.0` 保留）。请先备份数据；本次仅核对上游配置，尚未完成 1Panel 实机或容器启动验证。
+> 最新新增版本：`1.8.1`，保留 `1.8.0` 和 `1.7.10`。上游指出 1.8.1 发布在 1.9.0 之后并基于其源码；请先备份数据。本次尚未完成 1Panel 或容器实机验证。
 
 
 
@@ -12,12 +12,12 @@
 - 国内版与国际版使用独立账号池，支持模型选区、账号轮询、会话亲和及故障冷却。
 - 提供 OAuth 设备授权、PAT 导入、Token 定时刷新、签到及 Web 用量看板。
 - 网关以 Python 实现（1.8.0 镜像包含 Pillow，用于图片预处理），无需额外数据库或 Redis。上游容器使用 Python 3.11 Alpine，并包含 UMID 原生组件及兼容库。
-- 本应用包版本为 **1.8.0**，固定使用上游镜像 `ghcr.io/shuishuipingan/qoder2api-hub:1.8.0`，支持 `amd64` / `arm64`。内部端口为 `8790`，镜像默认以 `python qoder_proxy.py --lan` 启动。
+- 最新应用包版本为 **1.8.1**，固定使用上游镜像 `ghcr.io/shuishuipingan/qoder2api-hub:1.8.1`，支持 `amd64` / `arm64`。内部端口为 `8790`，镜像默认以 `python qoder_proxy.py --lan` 启动。
 - 这是依赖上游非公开协议的项目，接口可用性、模型和账号额度取决于 Qoder；多账号不保证规避排队或限流。仅在私有环境中使用自己的授权账号，遵守上游服务条款。
 
 ## 安装与访问
 
-将整个 `qoder2api-hub` 应用目录放入目标 1Panel 安装目录下的 `1panel/resource/apps/local/`，在面板同步本地应用，选择版本 `1.8.0` 安装。安装前需存在 1Panel 管理的 `1panel-network` 网络。
+将整个 `qoder2api-hub` 应用目录放入目标 1Panel 安装目录下的 `1panel/resource/apps/local/`，在面板同步本地应用，选择版本 `1.8.1` 安装。安装前需存在 1Panel 管理的 `1panel-network` 网络。
 
 安装表单只配置宿主机 HTTP 端口，默认 `8790`。看板与 API 共用该端口。Compose 默认映射 `127.0.0.1:8790:8790`，最终发布地址仍须核对 1Panel 的高级设置。容器内部必须监听 `0.0.0.0`，这与宿主机的回环地址绑定分别生效。
 
@@ -48,25 +48,28 @@
 | 宿主机目录 | 容器路径 | 内容 |
 | --- | --- | --- |
 | `./accounts` | `/app/accounts` | 账号凭证、设置、API Key、面板密码摘要及机器身份缓存 |
-| `./usage` | `/app/usage` | 用量流水 |
+| `./logs` | `/app/logs` | 网关日志及新版用量流水 `logs/usage` |
+| `./usage` | `/app/usage`（只读） | 旧版用量流水，作为首次迁移来源 |
 
-备份时停止应用并同时备份这两个目录；它们包含敏感凭证，应限制读取权限。重建、升级及迁移时保留数据目录，尤其不要删除机器身份缓存。卸载前另行备份，避免随安装目录清理丢失数据。
+备份时停止应用并同时备份以上三个目录；它们包含敏感凭证，应限制读取权限。重建、升级及迁移时保留数据目录，尤其不要删除机器身份缓存。卸载前另行备份，避免随安装目录清理丢失数据。
 
 健康检查使用无需鉴权、无需账号的 `/ping`，只表示 HTTP 进程可响应，不代表上游推理可用。启动后仍需添加账号并实际调用模型验证。
+
+1.8.1 默认将新流水写入 `./logs/usage`；上游在目标为空时从只读 `./usage` 复制旧版 JSON/JSONL，若目标已有文件则保留原文件并报告冲突，不自动合并。若新建实例，要先将旧实例的账号和用量目录迁移到新实例，再启动；仅新增商店版本不会自动迁移已有实例的数据。请先备份，并核对迁移结果。
 
 通过 1Panel 更新容器镜像，不依赖容器内更新源码。应用包关闭跨版本升级，后续新增版本前应核对上游兼容性并备份数据。
 
 ## 参数来源与验证范围
 
-调研日期：2026-10-30。部署参数依据上游 `v1.8.0`：
+调研日期：2026-11-07。部署参数依据上游 `v1.8.1`：
 
-- [发布记录与镜像标签](https://github.com/shuishuipingan/qoder2api-hub/releases/tag/v1.8.0)
-- [Compose：端口、数据卷、探针](https://github.com/shuishuipingan/qoder2api-hub/blob/v1.8.0/docker-compose.yml)
-- [Dockerfile：运行环境、默认命令与用户](https://github.com/shuishuipingan/qoder2api-hub/blob/v1.8.0/Dockerfile)（未声明 `USER`，沿用基础镜像默认 root 用户）
-- [镜像发布：amd64 / arm64 与 semver 标签](https://github.com/shuishuipingan/qoder2api-hub/blob/v1.8.0/.github/workflows/docker-publish.yml)
-- [配置参考：密码与鉴权](https://github.com/shuishuipingan/qoder2api-hub/blob/v1.8.0/docs/configuration.md)
-- [部署文档](https://github.com/shuishuipingan/qoder2api-hub/blob/v1.8.0/docs/deployment.md)与 [MIT 许可](https://github.com/shuishuipingan/qoder2api-hub/blob/v1.8.0/LICENSE)
+- [发布记录与镜像标签](https://github.com/shuishuipingan/qoder2api-hub/releases/tag/v1.8.1)
+- [Compose：端口、数据卷、探针](https://github.com/shuishuipingan/qoder2api-hub/blob/v1.8.1/docker-compose.yml)
+- [Dockerfile：运行环境、默认命令与用户](https://github.com/shuishuipingan/qoder2api-hub/blob/v1.8.1/Dockerfile)（未声明 `USER`，沿用基础镜像默认 root 用户）
+- [镜像发布：amd64 / arm64 与 semver 标签](https://github.com/shuishuipingan/qoder2api-hub/blob/v1.8.1/.github/workflows/docker-publish.yml)
+- [配置参考：密码与鉴权](https://github.com/shuishuipingan/qoder2api-hub/blob/v1.8.1/docs/configuration.md)
+- [部署文档](https://github.com/shuishuipingan/qoder2api-hub/blob/v1.8.1/docs/deployment.md)与 [MIT 许可](https://github.com/shuishuipingan/qoder2api-hub/blob/v1.8.1/LICENSE)
 
 `logo.png` 为本应用条目自制的 Q2A HUB 文字图标，不是上游官方标志，也未借用其他应用图标。
 
-本次完成 YAML、表单引用、PNG 和 Compose 配置静态检查；未进行 1Panel 实机安装、镜像启动或真实账号推理验证。环境缺少 Ruby，仓库的 Ruby 校验脚本未能执行，以 Python 检查同类静态规则；Docker daemon 不可访问，未拉取或运行镜像。
+1.8.1 更新对照了上游发布说明、Compose 和迁移实现；当前执行环境不可用，未运行 Ruby 校验器、Compose、容器或 1Panel 实机检查。
