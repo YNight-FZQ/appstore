@@ -1,0 +1,24 @@
+services:
+  whats-up-docker:
+    image: getwud/wud:9.8.0
+    container_name: ${CONTAINER_NAME}
+    restart: unless-stopped
+    ports:
+      - '127.0.0.1:${PANEL_APP_PORT_HTTP}:3000'
+    environment:
+      TZ: Asia/Shanghai
+      WUD_AUTH_ADMIN_USER: ${WUD_AUTH_ADMIN_USER}
+      WUD_AUTH_ADMIN_PASSWORD: ${WUD_AUTH_ADMIN_PASSWORD:?请设置管理员密码}
+      WUD_TRIGGER_DOCKER_AUTOUPDATE_AUTO: 'true'
+      WUD_TRIGGER_DOCKER_AUTOUPDATE_INCLUDEBYDEFAULT: 'false'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./data:/store
+    networks:
+      - 1panel-network
+    labels:
+      createdBy: Apps
+      wud.watch: 'false'
+networks:
+  1panel-network:
+    external: true

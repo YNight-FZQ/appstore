@@ -1,0 +1,25 @@
+name: What's Up Docker
+tags:
+  - 实用工具
+title: 容器镜像更新监控与自动更新
+description: 提供容器镜像更新看板，并支持对指定容器自动更新
+additionalProperties:
+  key: whats-up-docker
+  name: What's Up Docker
+  tags:
+    - Tool
+  shortDescZh: 容器镜像更新监控与自动更新
+  shortDescEn: Container image update monitoring and automation
+  description:
+    zh: 查看镜像更新，并按容器标签选择自动更新。
+    en: Monitor image updates and opt containers into automatic updates using labels.
+  type: website
+  crossVersionUpdate: false
+  limit: 1
+  recommend: 0
+  architectures:
+    - amd64
+    - arm64
+  website: https://getwud.app/
+  github: https://github.com/getwud/wud
+  document: https://github.com/getwud/wud/blob/9.8.0/website/docs/quickstart/README.md

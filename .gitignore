@@ -33,3 +33,7 @@ apps/3xui/**/__pycache__/
 apps/freellmapi/*/.env
 apps/freellmapi/*/conf/app.env
 apps/freellmapi/*/data/
+
+# What's Up Docker 安装参数与运行数据
+apps/whats-up-docker/*/.env
+apps/whats-up-docker/*/data/

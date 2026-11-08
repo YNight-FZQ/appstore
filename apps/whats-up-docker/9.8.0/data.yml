@@ -1,0 +1,30 @@
+additionalProperties:
+  formFields:
+    - envKey: PANEL_APP_PORT_HTTP
+      default: 3800
+      labelZh: 本机 HTTP 端口
+      labelEn: Local HTTP port
+      description:
+        zh: 默认绑定宿主机回环地址；最终绑定地址请检查 1Panel 高级设置。
+        en: Bound to host loopback by default; check 1Panel advanced settings.
+      type: number
+      rule: paramPort
+      required: true
+      edit: true
+    - envKey: WUD_AUTH_ADMIN_USER
+      default: admin
+      labelZh: 管理员用户名
+      labelEn: Administrator username
+      type: text
+      required: true
+      edit: true
+    - envKey: WUD_AUTH_ADMIN_PASSWORD
+      default: ''
+      labelZh: 管理员密码
+      labelEn: Administrator password
+      description:
+        zh: 请设置强密码；首次创建管理员及每次启动时生效。
+        en: Set a strong password; used for administrator bootstrap on each start.
+      type: password
+      required: true
+      edit: true
