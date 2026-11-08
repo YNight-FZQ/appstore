@@ -1,0 +1,13 @@
+additionalProperties:
+  formFields:
+    - envKey: PANEL_APP_PORT_HTTP
+      default: 8090
+      labelZh: 本机 HTTP 端口
+      labelEn: Local HTTP port
+      description:
+        zh: 仅绑定宿主机 127.0.0.1；默认端口为 8090。
+        en: Bound to 127.0.0.1 on the host; defaults to port 8090.
+      type: number
+      rule: paramPort
+      required: true
+      edit: true

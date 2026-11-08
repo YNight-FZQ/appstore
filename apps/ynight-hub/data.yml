@@ -14,7 +14,7 @@ additionalProperties:
     zh: YNight Hub 后端服务，提供业务接口、认证、缓存和对象存储功能。
     en: YNight Hub backend service with APIs, authentication, caching and object storage.
   type: website
-  crossVersionUpdate: false
+  crossVersionUpdate: true
   limit: 1
   recommend: 0
   website: https://github.com/YNightFZQ/ynight-hub

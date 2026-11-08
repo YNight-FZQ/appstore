@@ -4,6 +4,11 @@
 app_name=$1
 old_version=$2
 
+# These apps use independently numbered 1Panel configuration packages.
+case "$app_name" in
+  freellmapi|qoder2api-hub|lx-music-sync-server|tavily-proxy|ynight-hub) exit 0 ;;
+esac
+
 # 查找当前应用版本的 Compose 文件。
 docker_compose_files=$(find apps/$app_name/$old_version -name docker-compose.yml)
 

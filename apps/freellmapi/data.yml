@@ -14,7 +14,7 @@ additionalProperties:
     zh: 多服务商 LLM API 聚合、自动路由与故障切换
     en: Multi-provider LLM gateway with routing and failover
   type: website
-  crossVersionUpdate: false
+  crossVersionUpdate: true
   limit: 0
   recommend: 0
   architectures:
