@@ -11,17 +11,17 @@
 apps/libretv/*/.env
 
 # 本地生成的应用密钥文件
-apps/ynight-hub/latest/conf/app.env
+apps/ynight-hub/*/conf/app.env
 
 # Subconverter 安装时生成或自行维护的实际配置
-apps/subconverter/latest/conf/pref.toml
-apps/subconverter/latest/conf/auto_speed_test.ini
-apps/subconverter/latest/groups.toml
-apps/subconverter/latest/rulesets.toml
+apps/subconverter/*/conf/pref.toml
+apps/subconverter/*/conf/auto_speed_test.ini
+apps/subconverter/*/groups.toml
+apps/subconverter/*/rulesets.toml
 
 # Tavily Proxy Manager 的运行数据和安装参数
-apps/tavily-proxy/latest/data/
-apps/tavily-proxy/latest/.env
+apps/tavily-proxy/*/data/
+apps/tavily-proxy/*/.env
 
 # 3X-UI installation parameters and generated credentials/data
 apps/3xui/*/.env

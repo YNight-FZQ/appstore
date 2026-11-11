@@ -1,6 +1,6 @@
 ## 产品介绍
 
-> 新增独立配置包 `1.0.0`，应用主镜像仍使用 `latest`。旧 `latest` 包保留，1Panel 新安装时可能优先选择旧包，请手动选择 `1.0.0`。升级前备份配置、密钥、数据库和 Elasticsearch 数据；本版本尚未完成容器或 1Panel 实机验证。
+> 应用包仅保留版本号目录 `1.0.0`，不再提供 `latest` 目录；应用主镜像仍使用 `latest`。升级前备份配置、密钥、数据库和 Elasticsearch 数据；本版本尚未完成容器或 1Panel 实机验证。
 
 YNight Hub 的后端服务，提供业务接口、登录认证、Redis 缓存、MySQL 持久化、内置 Elasticsearch 日志和 Cloudflare R2 对象存储。
 
@@ -22,6 +22,8 @@ YNight Hub 的后端服务，提供业务接口、登录认证、Redis 缓存、
 
 ## 配置包升级
 
-`1.0.0` 仅代表本地配置版本，应用主镜像 `ghcr.io/ynightfzq/ynight-hub/server:latest` 独立更新；Elasticsearch 仍固定为 8.19.22，Watchtower 使用其默认镜像标签。保留旧的 `latest` 应用包并开放跨主版本选择；已安装的 `latest` 理论上可升级到 `1.0.0`，实际行为须以目标 1Panel 验证为准。
+`1.0.0` 仅代表本地配置版本，应用主镜像 `ghcr.io/ynightfzq/ynight-hub/server:latest` 独立更新；Elasticsearch 仍固定为 8.19.22，Watchtower 使用其默认镜像标签。
 
 升级前停止服务，分别备份实际安装目录的 `.env` 和 `conf/app.env`，以及 MySQL 数据、Redis 中需要保留的数据和 Elasticsearch 索引快照。升级脚本校验原 JWT 和 Elasticsearch 密码，不生成替代密钥。为处理 1Panel 升级预检的临时目录没有私有配置，`1.0.0` 的 `conf/app.env` 声明为可选；需要 Docker Compose 2.24.0 及以上支持 `env_file.required`，并须实际验证安装和升级。只同步应用商店不会更新已安装实例。应用主镜像更新与配置包升级是两件事，拉取新镜像并重建容器可更新程序；原内置 Watchtower 也可更新主容器，应避免其他工具重复管理。
+
+旧 `latest` 目录已从本应用包中删除。此前从 `latest` 安装的实例仍可正常运行，但该包的 Compose 缺少 `conf/app.env` 的可选声明（`env_file` 的 `path` / `required: false`）和 `scripts/upgrade.sh`，1Panel 升级预检和升级流程可能失败。这类实例迁移到 `1.0.0` 前，请先备份完整安装目录到实例目录之外，再新建实例恢复并核验数据；不要直接卸载旧实例，1Panel 卸载可能连带删除实例目录。

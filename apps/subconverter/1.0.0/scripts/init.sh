@@ -24,23 +24,41 @@ read_default_url() {
         case "$line" in
             SUBCONVERTER_DEFAULT_URL=*)
                 encoded="${line#*=}"
-                if [ "$encoded" = "''" ] || [ "$encoded" = '""' ]; then
-                    return 0
-                fi
-                if [ "${#encoded}" -lt 2 ] || [ "${encoded:0:1}" != "'" ] || [ "${encoded: -1}" != "'" ]; then
-                    echo '默认订阅 URL 含有不支持的字符；请先对引号和反斜杠进行 URL 编码' >&2
-                    return 1
-                fi
-                value="${encoded:1:${#encoded}-2}"
-                if [[ ! "$value" =~ ^https?://[^/?#[:space:]]+ ]] || [[ "$value" == *\"* ]] || [[ "$value" == *\\* ]] || [[ "$value" =~ [[:cntrl:]] ]]; then
-                    echo '默认订阅 URL 无效；请输入 HTTP 或 HTTPS 链接，并对引号和反斜杠进行 URL 编码' >&2
-                    return 1
-                fi
+                # 去掉行尾可能存在的 CR。
+                encoded="${encoded%$'\r'}"
+                # 兼容 1Panel 生成的三种取值形式：无引号、单引号、双引号。
+                case "$encoded" in
+                    "''"|'""')
+                        return 0
+                        ;;
+                    \'*\')
+                        value="${encoded:1:${#encoded}-2}"
+                        ;;
+                    \"*\")
+                        value="${encoded:1:${#encoded}-2}"
+                        ;;
+                    *)
+                        value="$encoded"
+                        ;;
+                esac
+                url_is_valid "$value" || return 1
                 printf '%s' "$value"
                 return 0
                 ;;
         esac
     done < .env
+}
+
+url_is_valid() {
+    local value="$1"
+    if [ -z "$value" ]; then
+        return 0
+    fi
+    if [[ ! "$value" =~ ^https?://[^/?#[:space:]]+ ]] || [[ "$value" == *\"* ]] || [[ "$value" == *\'* ]] || [[ "$value" == *\\* ]] || [[ "$value" =~ [[:cntrl:]] ]]; then
+        echo '默认订阅 URL 无效；请输入 HTTP 或 HTTPS 链接，并对引号、反斜杠进行 URL 编码' >&2
+        return 1
+    fi
+    return 0
 }
 
 if [ -e conf/pref.toml ] && [ ! -f conf/pref.toml ]; then

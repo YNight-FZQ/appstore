@@ -11,7 +11,20 @@ services:
       - ./conf/auto_speed_test.ini:/base/config/auto_speed_test.ini
       - ./groups.toml:/base/snippets/groups.toml:ro
       - ./rulesets.toml:/base/snippets/rulesets.toml:ro
-    restart: always
+    restart: unless-stopped
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - wget -q -O /dev/null http://127.0.0.1:25500/version
+      interval: 60s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
     labels:
       createdBy: Apps
 

@@ -10,9 +10,10 @@ api_access_token = "__GENERATE_API_TOKEN__"
 default_url = []
 
 # Insert subscription links to requests. Can be used to add node(s) to all exported subscriptions.
-enable_insert = true
+# 默认关闭：留空的 insert_url 会触发无效下载，需要插入额外节点时再开启并填写。
+enable_insert = false
 # URLs to insert before subscription links, can be used to add node(s) to all exported subscriptions, supports local files/URL
-insert_url = [""]
+insert_url = []
 # Prepend inserted URLs to subscription links. Nodes in insert_url will be added to groups first with non-group-specific match pattern.
 prepend_insert_url = true
 
@@ -153,10 +154,12 @@ replace = "$1x"
 
 [managed_config]
 # Append a '#!MANAGED-CONFIG' info to Surge configurations
-write_managed_config = true
+# 默认关闭：地址前缀只能填容器外可访问的地址，填错会让客户端反复拉取失败。
+write_managed_config = false
 
 # Address prefix for MANAGED-CONFIG info, without the trailing "/".
-managed_config_prefix = "http://127.0.0.1:25500"
+# 开启 write_managed_config 时必填，例如反代后的 https://sub.example.com。
+#managed_config_prefix = "https://sub.example.com"
 
 # Managed config update interval in seconds, determine how long the config will be updated.
 config_update_interval = 86400
@@ -337,8 +340,10 @@ print_debug_info = true
 max_pending_connections = 10240
 max_concurrent_threads = 4
 max_allowed_rulesets = 64
-max_allowed_rules = 0
-max_allowed_download_size = 0
+# 规则数量上限，0 表示无限；限制单次转换的规则总数，避免超大规则集耗尽内存
+max_allowed_rules = 65536
+# 下载外部文件的大小上限，单位 bytes，0 表示无限；超限的文件会被直接忽略
+max_allowed_download_size = 33554432
 enable_cache = true
 cache_subscription = 60
 cache_config = 300
