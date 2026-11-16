@@ -1,0 +1,27 @@
+name: Obsidian
+tags:
+  - 实用工具
+title: 基于 Web 的 Obsidian 笔记桌面，支持多端随时访问
+description: LinuxServer 封装的 Obsidian 桌面容器，通过浏览器流式访问本地知识库。
+additionalProperties:
+  key: obsidian
+  name: Obsidian
+  tags:
+    - Tool
+  shortDescZh: 在浏览器中访问 Obsidian 笔记桌面
+  shortDescEn: Access the Obsidian desktop from your browser
+  description:
+    zh: LinuxServer 封装的 Obsidian 桌面容器，通过浏览器流式访问本地知识库；笔记数据保存在宿主机目录。
+    en: A LinuxServer-packaged Obsidian desktop streamed to your browser, with vault data kept on the host.
+  type: website
+  crossVersionUpdate: false
+  limit: 0
+  recommend: 0
+  # Electron 桌面流式传输，最低 2 GiB；其中 1 GiB 为 Chromium 共享内存。
+  memoryRequired: 2048
+  architectures:
+    - amd64
+    - arm64
+  website: https://obsidian.md/
+  github: https://github.com/linuxserver/docker-obsidian
+  document: https://docs.linuxserver.io/images/docker-obsidian

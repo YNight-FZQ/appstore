@@ -78,6 +78,7 @@ const VALID_RULES = new Set([
   'databaseUsername', 'email', 'ip', 'ipV6', 'ipv4', 'ipV4V6OrDomain',
   'host', 'domain', 'domainWithPort', 'domainOrIP', 'ipv4orV6', 'illegal',
   'appName', 'containerName', 'nginxDoc', 'filePermission',
+  'integerNumber', 'integerNumberWith0', 'floatNumber', 'number',
 ]);
 
 for (const version of versions) {

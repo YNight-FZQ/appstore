@@ -85,6 +85,7 @@ versions.each do |version|
       databaseUsername email ip ipV6 ipv4 ipV4V6OrDomain
       host domain domainWithPort domainOrIP ipv4orV6 illegal
       appName containerName nginxDoc filePermission
+      integerNumber integerNumberWith0 floatNumber number
     ]
     if field['rule'] && !valid_rules.include?(field['rule'])
       errors << "#{version}：#{key} 使用了不存在的 rule「#{field['rule']}」，1Panel 表单校验会抛 TypeError"

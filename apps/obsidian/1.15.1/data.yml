@@ -1,0 +1,74 @@
+additionalProperties:
+  formFields:
+    - envKey: PANEL_APP_PORT_HTTPS
+      default: 13001
+      labelZh: 本机 HTTPS 端口
+      description:
+        zh: Obsidian 由浏览器直接访问的端口，使用镜像自带的自签名证书；请用 https 打开并接受证书警告。默认绑定宿主机 127.0.0.1。
+      type: number
+      rule: paramPort
+      required: true
+      edit: true
+    - envKey: PANEL_APP_PORT_HTTP
+      default: 13000
+      labelZh: 本机 HTTP 端口（供反向代理）
+      description:
+        zh: 明文 HTTP，仅用于由反向代理终止 TLS 后转发；默认绑定宿主机 127.0.0.1，请勿直接暴露。
+      type: number
+      rule: paramPort
+      required: true
+      edit: true
+    - envKey: CUSTOM_USER
+      default: obsidian
+      labelZh: 基础认证用户名
+      description:
+        zh: 与下方密码同时填写后启用 HTTP 基础认证。留空则完全无认证，任何能访问端口的人都可操作桌面，请勿留空。
+      type: text
+      rule: paramCommon
+      required: true
+      edit: true
+    - envKey: PASSWORD
+      default: ''
+      labelZh: 基础认证密码
+      description:
+        zh: 请设置强密码。镜像默认无认证，且桌面内含带免密 sudo 的终端；基础认证只是底层防护，公网访问应再叠加反向代理认证。
+      type: password
+      required: true
+      edit: true
+    - envKey: PUID
+      default: 1000
+      labelZh: 运行用户 UID
+      description:
+        zh: 容器内进程映射到的宿主机用户 ID，需与 /config 数据目录属主一致。
+      type: number
+      rule: integerNumber
+      required: true
+      edit: true
+    - envKey: PGID
+      default: 1000
+      labelZh: 运行用户 GID
+      description:
+        zh: 容器内进程映射到的宿主机用户组 ID，需与 /config 数据目录属组一致。
+      type: number
+      rule: integerNumber
+      required: true
+      edit: true
+    - envKey: TZ
+      default: Asia/Shanghai
+      labelZh: 时区
+      type: text
+      required: true
+      edit: true
+    - envKey: PIXELFLUX_WAYLAND
+      default: 'false'
+      labelZh: Wayland 渲染模式
+      description:
+        zh: 上游自 2026-04 起默认关闭以保持稳定；启用可改善缩放与加速，弱 CPU 或出现花屏黑屏时应保持关闭。
+      type: select
+      required: true
+      edit: true
+      values:
+        - label: 关闭（默认，X11）
+          value: 'false'
+        - label: 开启（Wayland）
+          value: 'true'

@@ -1,0 +1,42 @@
+services:
+  obsidian:
+    image: lscr.io/linuxserver/obsidian:1.15.1
+    container_name: ${CONTAINER_NAME}
+    restart: unless-stopped
+    ports:
+      - '127.0.0.1:${PANEL_APP_PORT_HTTPS}:3001'
+      - '127.0.0.1:${PANEL_APP_PORT_HTTP}:3000'
+    environment:
+      PUID: ${PUID}
+      PGID: ${PGID}
+      TZ: ${TZ}
+      CUSTOM_USER: ${CUSTOM_USER:?请在安装表单中设置基础认证用户名，留空会完全禁用认证}
+      PASSWORD: ${PASSWORD:?请在安装表单中设置基础认证密码，留空会完全禁用认证}
+      PIXELFLUX_WAYLAND: ${PIXELFLUX_WAYLAND:-false}
+    volumes:
+      - ./data:/config
+    # Electron/Chromium 需要更大的共享内存，上游要求 1GB 起。
+    shm_size: '1gb'
+    networks:
+      - 1panel-network
+    healthcheck:
+      test:
+        - CMD
+        - curl
+        - -kfsS
+        - https://127.0.0.1:3001/
+      interval: 30s
+      timeout: 10s
+      start_period: 120s
+      retries: 3
+    logging:
+      driver: json-file
+      options:
+        max-size: '10m'
+        max-file: '3'
+    labels:
+      createdBy: Apps
+
+networks:
+  1panel-network:
+    external: true
