@@ -1,6 +1,6 @@
 # FreeLLMAPI
 
-> 配置包 `1.0.0` 使用独立编号和 `latest` 镜像。请先备份数据和原加密密钥；本版本尚未完成 1Panel 实机或容器启动验证。
+> 配置包 `1.1.0` 使用独立编号和 `latest` 镜像，并交由 What's Up Docker 自动更新。请先备份数据和原加密密钥；本版本尚未完成 1Panel 实机或容器启动验证。
 
 
 
@@ -10,13 +10,13 @@ FreeLLMAPI 是一个本地优先、单用户的多服务商 LLM 网关。它将�
 
 可以封装为 1Panel 应用：上游提供 `linux/amd64`、`linux/arm64` 的预构建镜像，Express API 与构建后的 React 看板由同一进程在 `3001` 端口提供服务；SQLite 存储在 `/app/server/data`，不依赖额外 MySQL、Redis 或 GPU。
 
-配置包 `1.0.0` 的镜像为 `ghcr.io/tashfeenahmed/freellmapi:latest`，包版本不代表上游镜像版本；本包只保留该版本，早期固定镜像的 `0.16.x` 应用包已移除。运行镜像以 root 入口修正数据目录属主，再降权为 `node` 用户启动服务，沿用上游行为。
+配置包 `1.1.0` 的镜像为 `ghcr.io/tashfeenahmed/freellmapi:latest`，包版本不代表上游镜像版本；`1.0.0`（同样使用 `latest` 镜像的前一版配置包）仍保留，供新旧配置对比，早期固定镜像的 `0.16.x` 应用包已移除。运行镜像以 root 入口修正数据目录属主，再降权为 `node` 用户启动服务，沿用上游行为。
 
 主要能力包括 OpenAI 兼容 `/v1`、Anthropic Messages、Responses，以及按服务商实际能力提供的媒体与嵌入接口。模型池、可用性和额度取决于你添加的服务商账号，不是自带的无限免费服务。路由器本身采用 MIT 许可；上游实时目录有 Premium 服务，免费目录更新存在延迟，详见上游说明。
 
 ## 安装
 
-将 `freellmapi` 应用目录放入目标面板安装路径下的 `1panel/resource/apps/local/`，同步本地应用后选择 `1.0.0`。需要已有 `1panel-network` 网络，并允许执行安装脚本。宿主机初始化需要 Bash、OpenSSL 及常规 coreutils/grep；不需要宿主机安装 Node.js。
+将 `freellmapi` 应用目录放入目标面板安装路径下的 `1panel/resource/apps/local/`，同步本地应用后选择 `1.1.0`。需要已有 `1panel-network` 网络，并允许执行安装脚本。宿主机初始化需要 Bash、OpenSSL 及常规 coreutils/grep；不需要宿主机安装 Node.js。
 
 安装表单：
 
@@ -49,7 +49,24 @@ OpenAI 兼容客户端的 Base URL 使用 `http://127.0.0.1:3001/v1`（或实际
 
 备份应同时保留完整 `data` 目录和 `conf/app.env`，备份前停止服务。只备份数据库不能恢复加密凭据；恢复时必须使用原始密钥。数据库中也可能含日志或缓存等敏感内容，按私密数据管理备份。
 
-升级前应备份完整数据及密钥。本包已移除 `0.16.x` 旧版本目录，只提供 `1.0.0`；曾从旧包安装的实例需手工改用本包，数据目录与 `conf/app.env` 可继续复用，密钥不可更换。升级脚本只校验原密钥，不生成新密钥。Compose 的可选 env_file 用于处理 1Panel 升级预检临时目录缺少密钥文件的问题，要求 Docker Compose 支持 `env_file.required`（2.24.0 及以上）；实际升级和缺钥保护仍须在目标 1Panel 版本验证。若密钥缺失或无效，恢复原密钥后才能升级。配置包版本独立于镜像版本；拉取最新镜像并重建容器才能更新程序。新镜像可能包含数据库迁移或不兼容变更，更新前请核对上游并备份。本包不部署 Watchtower，也不提供看板一键更新容器功能。
+升级前应备份完整数据及密钥。本包已移除 `0.16.x` 旧版本目录，提供 `1.0.0` 与 `1.1.0` 并存；曾从旧包安装的实例需手工改用本包，数据目录与 `conf/app.env` 可继续复用，密钥不可更换。升级脚本只校验原密钥，不生成新密钥。Compose 的可选 env_file 用于处理 1Panel 升级预检临时目录缺少密钥文件的问题，要求 Docker Compose 支持 `env_file.required`（2.24.0 及以上）；实际升级和缺钥保护仍须在目标 1Panel 版本验证。若密钥缺失或无效，恢复原密钥后才能升级。配置包版本独立于镜像版本；拉取最新镜像并重建容器才能更新程序。新镜像可能包含数据库迁移或不兼容变更，更新前请核对上游并备份。
+
+## 自动更新（What's Up Docker）
+
+`1.1.0` 起，主服务带有以下标签，由 [What's Up Docker](https://getwud.app/)（下称 WUD）接管镜像更新：
+
+```yaml
+wud.watch: 'true'
+wud.watch.digest: 'true'
+wud.tag.include: '^latest$'
+wud.trigger.docker.autoupdate.enabled: 'true'
+```
+
+`wud.watch.digest` 不可缺少：本包使用浮动的 `latest` 标签，标签名不会变化，WUD 只有比对镜像 digest 才能发现更新。`wud.tag.include` 把候选标签限定为 `latest`，避免 WUD 把其他标签误判为更新。
+
+前提是宿主机已安装本商店的 `whats-up-docker` 应用（触发器名 `docker.autoupdate`）。WUD 发现新 digest 后会自行拉取镜像并重建容器，期间有短暂中断。
+
+**WUD 只重建容器，不会升级 1Panel 配置包，也不执行数据迁移。** 升级主版本或上游说明要求迁移数据时，仍需在 1Panel 中手动升级配置包并备份。已安装的 `1.0.0` 实例需先手动升级到 `1.1.0` 并重建容器，标签才会生效；仅同步应用商店不会改动运行中的容器。镜像 `ghcr.io/tashfeenahmed/freellmapi` 为公开仓库，WUD 无需额外凭据。
 
 ## 来源与验证边界
 

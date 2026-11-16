@@ -62,7 +62,6 @@ additionalProperties:
         zh: "后台路径。最终 URL：http://SERVER_IP:port{ADMIN_PATH}"
         tr: "Yönetici paneli URL yolu. Son URL: http://SERVER_IP:port{ADMIN_PATH}"
       required: true
-      rule: paramString
       type: text
     - default: ''
       envKey: FRONTEND_PASSWORD
@@ -94,7 +93,6 @@ additionalProperties:
         zh: 访问后台管理界面所需的密码，安装后请务必修改。
         tr: Yönetici paneline erişmek için şifre. Kurulumdan sonra LÜTFEN DEĞİŞTİRİN.
       required: true
-      rule: paramString
       type: password
     - default: ''
       envKey: WEBPLAYER_PASSWORD
@@ -126,7 +124,6 @@ additionalProperties:
         zh: 访问 Web 播放器所需的密码（仅在 ENABLE_WEBPLAYER_AUTH 为 true 时生效），安装后请务必修改。
         tr: Web oynatıcıya erişmek için şifre (yalnızca ENABLE_WEBPLAYER_AUTH true olduğunda uygulanır). Kurulumdan sonra LÜTFEN DEĞİŞTİRİN.
       required: true
-      rule: paramString
       type: password
     - default: 'true'
       envKey: ENABLE_WEBPLAYER_AUTH
@@ -194,7 +191,6 @@ additionalProperties:
         zh: "LX Music 桌面端使用的内置 'admin' 同步账号密码，留空则停用此同步账号。"
         tr: "LX Music masaüstü istemcisi tarafından kullanılan yerleşik 'admin' LX Music senkronizasyon hesabının şifresi. Devre dışı bırakmak için boş bırakın."
       required: false
-      rule: paramString
       type: password
     - default: 'true'
       envKey: DISABLE_TELEMETRY

@@ -1,0 +1,50 @@
+additionalProperties:
+  formFields:
+    - envKey: PANEL_APP_PORT_HTTP
+      default: 3800
+      labelZh: 本机 HTTP 端口
+      labelEn: Local HTTP port
+      description:
+        zh: 默认绑定宿主机回环地址；最终绑定地址请检查 1Panel 高级设置。
+        en: Bound to host loopback by default; check 1Panel advanced settings.
+      type: number
+      rule: paramPort
+      required: true
+      edit: true
+    - envKey: WUD_AUTH_ADMIN_USER
+      default: admin
+      labelZh: 管理员用户名
+      labelEn: Administrator username
+      type: text
+      required: true
+      edit: true
+    - envKey: WUD_AUTH_ADMIN_PASSWORD
+      default: ''
+      labelZh: 管理员密码
+      labelEn: Administrator password
+      description:
+        zh: 请设置强密码；首次创建管理员及每次启动时生效。
+        en: Set a strong password; used for administrator bootstrap on each start.
+      type: password
+      required: true
+      edit: true
+    - envKey: WUD_REGISTRY_GHCR_LOCAL_USERNAME
+      default: ''
+      labelZh: 私有 GHCR 用户名（可留空）
+      labelEn: Private GHCR username (optional)
+      description:
+        zh: 仅用于查询私有 GHCR 镜像更新，如 ynight-hub。需与下方 Token 同时填写，否则该仓库实例不启用；留空不影响公开镜像。填写 GitHub 用户名。
+        en: Only for private GHCR images. Must be filled together with the token below. Leave both blank to skip; public images are unaffected.
+      type: text
+      required: false
+      edit: true
+    - envKey: WUD_REGISTRY_GHCR_LOCAL_TOKEN
+      default: ''
+      labelZh: 私有 GHCR 令牌（可留空）
+      labelEn: Private GHCR token (optional)
+      description:
+        zh: 填 GitHub classic PAT，需 read:packages 权限。必须与上方用户名同时填写。该值保存在实例 .env 中，请勿提交到版本库。
+        en: GitHub classic PAT with read:packages scope. Must be provided together with the username above. Stored in the instance .env; never commit it.
+      type: password
+      required: false
+      edit: true

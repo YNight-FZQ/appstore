@@ -5,8 +5,9 @@ app_name=$1
 old_version=$2
 
 # These apps use independently numbered 1Panel configuration packages.
+# whats-up-docker 使用 latest 镜像，若不加白名单会被重命名为 latest 目录。
 case "$app_name" in
-  freellmapi|qoder2api-hub|lx-music-sync-server|subconverter|tavily-proxy|ynight-hub) exit 0 ;;
+  freellmapi|qoder2api-hub|lx-music-sync-server|subconverter|tavily-proxy|ynight-hub|whats-up-docker) exit 0 ;;
 esac
 
 # 查找当前应用版本的 Compose 文件。

@@ -10,9 +10,9 @@ description: 在当前 appstore 仓库中快速创建或维护个人 1Panel v2 �
 ## 工作方法
 
 1. 确定应用标识、版本、官方仓库或文档、官方容器镜像、内部端口、持久化路径、必填环境变量、运行用户及镜像架构。来源不明确的部署参数先查证，不凭名称猜测。
-2. 创建单容器 HTTP 应用时，运行 `ruby .agents/skills/1panel-app/scripts/new_app.rb --help`，按已核实的数据生成最小应用包；复杂拓扑可直接按同一目录格式编写。必须使用应用自身的合法 PNG 图标，不借用其他应用图标。
-3. 只把安装或后续维护需要修改的值放入版本 `data.yml`。让每个 `envKey` 与 Compose 中的引用或 `env_file` 对上；不能把表单字段当作自动注入的容器环境变量。布尔开关使用字符串值的 `select`，不要使用 `type: boolean`。
+2. 创建单容器 HTTP 应用时，运行 `ruby .agents/skills/1panel-app/scripts/new_app.rb --help`，按已核实的数据生成最小应用包；复杂拓扑可直接按同一目录格式编写。必须使用应用自身的合法 PNG 图标，不借用其他应用图标。环境没有 Ruby 时，按 [格式与快捷配置](references/format-and-fields.md) 手工编写同样的目录结构。
+3. 只把安装或后续维护需要修改的值放入版本 `data.yml`。让每个 `envKey` 与 Compose 中的引用或 `env_file` 对上；不能把表单字段当作自动注入的容器环境变量。布尔开关使用字符串值的 `select`，不要使用 `type: boolean`。Compose 中所有服务容器都必须加入 `1panel-network` 外部网络（每服务 `networks` 引用 + 顶层 `external: true` 声明），1Panel 不会替应用包注入网络，缺失会断开跨应用容器名互访，规则细节见[格式与快捷配置](references/format-and-fields.md)的「容器网络规则」。
 4. 新增版本时保留旧版本目录；核实镜像、迁移和兼容性后再决定 `crossVersionUpdate`。`init.sh` 只处理有证据的首次初始化工作，并保证重复执行安全。真实密钥、安装生成的 `.env` 和运行数据不进入仓库。
-5. 运行 `ruby .agents/skills/1panel-app/scripts/check_app.rb apps/<应用标识>`。有 Compose 的环境再用示例参数运行 `docker compose config --quiet`；有脚本则运行 `bash -n`。需要实际安装验证时，把应用包放到目标面板安装目录下的 `1panel/resource/apps/local/<应用标识>`，同步本地应用，再测试安装、重建、升级与卸载。只有用户要求操作服务器时才进行远程安装。
+5. 运行静态检查：有 Ruby 时执行 `ruby .agents/skills/1panel-app/scripts/check_app.rb apps/<应用标识>`；没有 Ruby 但有 Node.js 时执行 `NODE_PATH=<yaml模块路径> node .agents/skills/1panel-app/scripts/check_app.mjs apps/<应用标识>`（需先 `npm install yaml`）。两版等价：都校验 `rule` 是否为 1Panel 前端已定义的键（v2.5.0 核对）、`random` 字段是否搭配合法 `default` 前缀，并把生命周期脚本写入 `.env` 的变量计入已知变量。有 Compose 的环境再用示例参数运行 `docker compose config --quiet`；有脚本则运行 `bash -n`。需要实际安装验证时，把应用包放到目标面板安装目录下的 `1panel/resource/apps/local/<应用标识>`，同步本地应用，再测试安装、重建、升级与卸载。只有用户要求操作服务器时才进行远程安装。
 
-交付时说明应用目录、版本、参数来源、已完成的静态检查，以及尚未执行的 1Panel 实机检查。当前字段结论来自 1Panel `dev-v2` 的固定提交 `d2bb3813`；针对其他面板版本时重新核对源码。
+交付时说明应用目录、版本、参数来源、已完成的静态检查，以及尚未执行的 1Panel 实机检查。当前字段结论来自 1Panel `dev-v2` 的固定提交 `0b0c8cb`；针对其他面板版本时重新核对源码。

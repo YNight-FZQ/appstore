@@ -2,11 +2,28 @@
 
 Subconverter 是代理订阅格式转换工具。本应用使用 `tindy2013/subconverter:latest`，默认把容器内的 25500 端口映射到宿主机 `127.0.0.1:15051`。1Panel 安装表单可以调整宿主机端口，绑定地址仍为回环地址。
 
-`1.0.0` 是本地配置包编号，独立于上游程序版本。
+`1.1.0` 是本地配置包编号，独立于上游程序版本。
 
 ## 上游版本
 
 上游代码版本为 `v0.9.0`（2024-04-08 发布），此后没有新的 tag；`latest` 镜像在 2026-07 因构建脚本调整被重新推送，版本号未变，因此容器内 `/version` 仍返回 `v0.9.0`。本应用跟随 `latest`，镜像更新可通过 `docker compose pull` 获取。
+
+## 自动更新（What's Up Docker）
+
+`1.1.0` 起，主服务带有以下标签，由 [What's Up Docker](https://getwud.app/)（下称 WUD）接管镜像更新：
+
+```yaml
+wud.watch: 'true'
+wud.watch.digest: 'true'
+wud.tag.include: '^latest$'
+wud.trigger.docker.autoupdate.enabled: 'true'
+```
+
+`wud.watch.digest` 不可缺少：本包使用浮动的 `latest` 标签，标签名不会变化，WUD 只有比对镜像 digest 才能发现更新。`wud.tag.include` 把候选标签限定为 `latest`，避免 WUD 把 `alpine`、`0.9.0` 等其他标签误判为更新。
+
+前提是宿主机已安装本商店的 `whats-up-docker` 应用（触发器名 `docker.autoupdate`）。WUD 发现新 digest 后会自行拉取镜像并重建容器，期间有短暂中断。
+
+**WUD 只重建容器，不会升级 1Panel 配置包。** 本包在首次安装时于安装目录生成 `conf/pref.toml` 等配置文件，这些文件位于宿主机目录、不在镜像内，重建容器不会覆盖，因此自动更新不会丢失订阅令牌和自定义配置。已安装的 `1.0.0` 实例需先手动升级到 `1.1.0` 并重建容器，标签才会生效。镜像 `tindy2013/subconverter` 为公开仓库，WUD 无需额外凭据。
 
 ## 安装与配置
 

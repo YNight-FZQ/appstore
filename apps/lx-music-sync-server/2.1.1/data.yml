@@ -62,7 +62,6 @@ additionalProperties:
         zh: "后台路径。最终 URL：http://SERVER_IP:port{ADMIN_PATH}"
         tr: "Yönetici paneli URL yolu. Son URL: http://SERVER_IP:port{ADMIN_PATH}"
       required: true
-      rule: paramString
       type: text
     - default: 123456
       envKey: FRONTEND_PASSWORD
@@ -94,7 +93,6 @@ additionalProperties:
         zh: 访问后台管理界面所需的密码，安装后请务必修改。
         tr: Yönetici paneline erişmek için şifre. Kurulumdan sonra LÜTFEN DEĞİŞTİRİN.
       required: true
-      rule: paramString
       type: text
     - default: 123456
       envKey: WEBPLAYER_PASSWORD
@@ -126,7 +124,6 @@ additionalProperties:
         zh: 访问 Web 播放器所需的密码（仅在 ENABLE_WEBPLAYER_AUTH 为 true 时生效），安装后请务必修改。
         tr: Web oynatıcıya erişmek için şifre (yalnızca ENABLE_WEBPLAYER_AUTH true olduğunda uygulanır). Kurulumdan sonra LÜTFEN DEĞİŞTİRİN.
       required: true
-      rule: paramString
       type: text
     - default: 'true'
       envKey: ENABLE_WEBPLAYER_AUTH
@@ -158,8 +155,12 @@ additionalProperties:
         zh: "启用后，Web 播放器将要求输入密码（WEBPLAYER_PASSWORD）。允许值：true / false。"
         tr: "Etkinleştirildiğinde, Web oynatıcı şifre (WEBPLAYER_PASSWORD) isteyecektir. İzin verilen değerler: true / false."
       required: true
-      rule: paramBool
-      type: boolean
+      type: select
+      values:
+        - label: 开启 / Enabled
+          value: 'true'
+        - label: 关闭 / Disabled
+          value: 'false'
     - default: ''
       envKey: LX_USER_ADMIN_PASSWORD
       edit: true
@@ -190,7 +191,6 @@ additionalProperties:
         zh: "LX Music 桌面端使用的内置 'admin' 同步账号密码，留空则停用此同步账号。"
         tr: "LX Music masaüstü istemcisi tarafından kullanılan yerleşik 'admin' LX Music senkronizasyon hesabının şifresi. Devre dışı bırakmak için boş bırakın."
       required: false
-      rule: paramString
       type: text
     - default: 'true'
       envKey: DISABLE_TELEMETRY
@@ -222,5 +222,9 @@ additionalProperties:
         zh: "启用后，将停用匿名使用统计、系统公告及新版本通知。允许值：true / false。"
         tr: "Etkinleştirildiğinde anonim kullanım istatistikleri, sistem duyuruları ve yeni sürüm bildirimleri bastırılır. İzin verilen değerler: true / false."
       required: true
-      rule: paramBool
-      type: boolean
+      type: select
+      values:
+        - label: 开启 / Enabled
+          value: 'true'
+        - label: 关闭 / Disabled
+          value: 'false'
