@@ -1,0 +1,35 @@
+services:
+  new-api:
+    image: calciumion/new-api:latest
+    container_name: ${CONTAINER_NAME}
+    sysctls:
+      net.ipv6.conf.all.disable_ipv6: 1
+      net.ipv6.conf.default.disable_ipv6: 1
+    restart: unless-stopped
+    command: ["--log-dir", "/data/logs"]
+    ports:
+      - '127.0.0.1:${PANEL_APP_PORT_HTTP}:3000'
+    environment:
+      TZ: Asia/Shanghai
+      SESSION_SECRET: ${SESSION_SECRET:?请设置会话密钥}
+      SQL_DSN: ${SQL_DSN:-}
+      REDIS_CONN_STRING: ${REDIS_CONN_STRING:-}
+    volumes:
+      - ./data:/data
+    networks:
+      - 1panel-network
+    labels:
+      createdBy: Apps
+      wud.watch: 'true'
+      wud.watch.digest: 'true'
+      wud.tag.include: '^latest$'
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:3000/api/status"]
+      interval: 30s
+      timeout: 10s
+      start_period: 30s
+      retries: 3
+
+networks:
+  1panel-network:
+    external: true
