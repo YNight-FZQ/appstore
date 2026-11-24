@@ -6,7 +6,7 @@ old_version=$2
 
 # 这些应用使用独立的 1Panel 配置包编号，镜像标签变化时保留版本目录。
 case "$app_name" in
-  file-share|freellmapi|new-api|qoder2api-hub|lx-music-sync-server|subconverter|tavily-proxy|ynight-hub|whats-up-docker) exit 0 ;;
+  file-share|freellmapi|newapi|qoder2api-hub|lx-music-sync-server|subconverter|tavily-proxy|ynight-hub|whats-up-docker) exit 0 ;;
 esac
 
 # 查找当前应用版本的 Compose 文件。

@@ -4,7 +4,7 @@ tags:
 title: 多模型 API 网关
 description: 聚合多个模型服务，统一管理渠道、API 密钥、额度和用量。
 additionalProperties:
-  key: new-api
+  key: newapi
   name: New API
   tags:
     - AI

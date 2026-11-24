@@ -9,7 +9,7 @@
 | [`apps/freellmapi`](apps/freellmapi) | 多服务商 LLM API 聚合与自动故障切换 |
 | [`apps/libretv`](apps/libretv) | 影视聚合搜索与直播播放工具 |
 | [`apps/lx-music-sync-server`](apps/lx-music-sync-server) | LX Music 数据同步服务 |
-| [`apps/new-api`](apps/new-api) | 多模型 API 网关，统一管理渠道、密钥与用量 |
+| [`apps/newapi`](apps/newapi) | 多模型 API 网关，统一管理渠道、密钥与用量 |
 | [`apps/obsidian`](apps/obsidian) | 在浏览器中访问 Obsidian 笔记桌面 |
 | [`apps/qoder2api-hub`](apps/qoder2api-hub) | Qoder 双区多账号 OpenAI / Anthropic 兼容网关 |
 | [`apps/subconverter`](apps/subconverter) | 代理订阅格式转换工具 |

@@ -4,7 +4,7 @@ New API 是多模型 API 网关，可集中管理渠道、API 密钥、额度和
 
 ## 安装与使用
 
-1. 将应用目录放入目标 1Panel 安装目录下的 `1panel/resource/apps/local/new-api`，同步本地应用后选择 `1.0.0`。
+1. 将应用目录放入目标 1Panel 安装目录下的 `1panel/resource/apps/local/newapi`，同步本地应用后选择 `1.0.0`。
 2. 用 `openssl rand -hex 32` 生成会话密钥并填入安装表单。默认使用单容器 SQLite 部署。若使用现有 MySQL、PostgreSQL 或 Redis，在表单中填写对应连接串，并确保容器能连接到该服务。
 3. 从宿主机访问 `http://127.0.0.1:3000`，按初始化向导创建管理员。默认绑定宿主机回环地址，也可通过反向代理访问容器的 `3000` 端口。
 

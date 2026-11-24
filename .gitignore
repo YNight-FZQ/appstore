@@ -42,5 +42,5 @@ apps/whats-up-docker/*/data/
 apps/file-share/*/.env
 apps/file-share/*/data/
 apps/file-share/*/upload/
-apps/new-api/*/.env
-apps/new-api/*/data/
+apps/newapi/*/.env
+apps/newapi/*/data/
