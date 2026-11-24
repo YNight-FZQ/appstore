@@ -37,3 +37,10 @@ apps/freellmapi/*/data/
 # What's Up Docker 安装参数与运行数据
 apps/whats-up-docker/*/.env
 apps/whats-up-docker/*/data/
+
+# File Share 和 New API 安装参数与运行数据
+apps/file-share/*/.env
+apps/file-share/*/data/
+apps/file-share/*/upload/
+apps/new-api/*/.env
+apps/new-api/*/data/

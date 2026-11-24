@@ -1,0 +1,25 @@
+name: New API
+tags:
+  - AI
+title: 多模型 API 网关
+description: 聚合多个模型服务，统一管理渠道、API 密钥、额度和用量。
+additionalProperties:
+  key: new-api
+  name: New API
+  tags:
+    - AI
+  shortDescZh: 多模型 API 网关与用量管理
+  shortDescEn: Multi-model API gateway and usage management
+  description:
+    zh: 聚合多个模型服务，统一管理渠道、API 密钥、额度和用量。
+    en: Connect multiple model providers and manage channels, API keys, quotas, and usage in one place.
+  type: website
+  crossVersionUpdate: false
+  limit: 0
+  recommend: 0
+  architectures:
+    - amd64
+    - arm64
+  website: https://www.newapi.ai/
+  github: https://github.com/QuantumNous/new-api
+  document: https://docs.newapi.ai/

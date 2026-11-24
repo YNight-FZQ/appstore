@@ -1,0 +1,40 @@
+additionalProperties:
+  formFields:
+    - envKey: PANEL_APP_PORT_HTTP
+      default: 5421
+      labelZh: HTTP 端口
+      labelEn: HTTP port
+      type: number
+      rule: paramPort
+      required: true
+      edit: true
+    - envKey: ADMIN_USERNAME
+      default: admin
+      labelZh: 管理员用户名
+      labelEn: Administrator username
+      type: text
+      rule: paramSimple
+      required: true
+      edit: true
+    - envKey: ADMIN_PASSWORD
+      default: ''
+      labelZh: 管理员密码
+      labelEn: Administrator password
+      description:
+        zh: 服务每次启动时都会应用此密码。
+        en: The service applies this password each time it starts.
+      type: password
+      required: true
+      edit: true
+    - envKey: AUTH_ENABLE
+      default: 'true'
+      labelZh: 网页密码认证
+      labelEn: Web password authentication
+      type: select
+      required: true
+      edit: true
+      values:
+        - label: 启用 / Enabled
+          value: 'true'
+        - label: 关闭 / Disabled
+          value: 'false'

@@ -1,0 +1,39 @@
+additionalProperties:
+  formFields:
+    - envKey: PANEL_APP_PORT_HTTP
+      default: 3000
+      labelZh: HTTP 端口
+      labelEn: HTTP port
+      type: number
+      rule: paramPort
+      required: true
+      edit: true
+    - envKey: SESSION_SECRET
+      default: ''
+      labelZh: 会话密钥
+      labelEn: Session secret
+      description:
+        zh: 使用 openssl rand -hex 32 生成并保留。该值也用于加密应用数据。
+        en: Generate with openssl rand -hex 32 and keep it. The same secret encrypts application data.
+      type: password
+      required: true
+    - envKey: SQL_DSN
+      default: ''
+      labelZh: 外部数据库连接串
+      labelEn: External database DSN
+      description:
+        zh: 可填已有的 MySQL 或 PostgreSQL 连接串。留空使用 SQLite。
+        en: Enter an existing MySQL or PostgreSQL DSN. Leave empty to use SQLite.
+      type: password
+      required: false
+      edit: true
+    - envKey: REDIS_CONN_STRING
+      default: ''
+      labelZh: Redis 连接串
+      labelEn: Redis connection URL
+      description:
+        zh: 可填已有的 Redis 连接地址。留空关闭 Redis。
+        en: Enter an existing Redis connection URL. Leave empty to run without Redis.
+      type: password
+      required: false
+      edit: true

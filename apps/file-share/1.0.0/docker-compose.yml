@@ -1,0 +1,25 @@
+services:
+  file-share:
+    image: ghcr.io/cky-thinker/file-share:1.0.13
+    container_name: ${CONTAINER_NAME}
+    restart: unless-stopped
+    command: ["node", "--require", "/app/docker/level-db-compat.cjs", "/app/docker/server.js"]
+    ports:
+      - '127.0.0.1:${PANEL_APP_PORT_HTTP}:5421'
+    environment:
+      PORT: '5421'
+      ADMIN_USERNAME: ${ADMIN_USERNAME:?请设置管理员用户名}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:?请设置管理员密码}
+      AUTH_ENABLE: ${AUTH_ENABLE:-true}
+    volumes:
+      - ./compat/level-db-compat.cjs:/app/docker/level-db-compat.cjs:ro
+      - ./data:/app/data
+      - ./upload:/app/upload
+    networks:
+      - 1panel-network
+    labels:
+      createdBy: Apps
+
+networks:
+  1panel-network:
+    external: true
